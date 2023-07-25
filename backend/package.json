@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon src/test2.js"
+    "dev": "nodemon src/index.js"
   },
   "dependencies": {
     "@prisma/client": "4.16.2",
