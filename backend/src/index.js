@@ -1,6 +1,6 @@
 const fs = require('fs');
 const { convertToMinutes,contextValue } = require('./helpers.js'); 
-const {scheduleTasks} = require('./scheduleTasks.js');
+const {scheduleTasks} = require('./s.js');
 
 let rawdata = fs.readFileSync('src/data.json');
 let tasks = JSON.parse(rawdata);
