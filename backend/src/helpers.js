@@ -10,4 +10,9 @@ function convertToTime(minutes) {
     return `${hourString}:${minuteString}`;
 }
 
-module.exports = { convertToMinutes, convertToTime };
+function contextValue(context) {
+    return context === "Work" ? 0 : 1;
+  }
+  
+
+module.exports = { convertToMinutes, convertToTime,contextValue };
