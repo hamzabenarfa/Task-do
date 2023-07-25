@@ -51,7 +51,7 @@ function scheduleTasks(tasks, start_time, end_time, OUTPUT, NEXT_DAY_TASKS) {
             convertToMinutes(task["start_at"]) + task["duree"]
           );
           OUTPUT.push(task);
-          available_time[i] = [task["end_at"], time[1]];  // Replace the old time slot with the updated one
+          available_time[i] = [task["end_at"], time[1]]; 
           break;
         }
       }
