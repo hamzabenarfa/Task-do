@@ -3,7 +3,7 @@ import NewBoard from "./new-board";
 
 const MyList = () => {
   return (
-    <div className="m-4 ">
+    <div className="m-4">
       <h1 className="font-bold">My Lists</h1>
       <div className="flex flex-wrap">
         <Board title="Personal" number={3} />
