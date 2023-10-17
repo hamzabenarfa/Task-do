@@ -1,3 +1,5 @@
+"use client";
+
 import Header from "../_components/header";
 import Menu from "../_components/menu";
 const nextweek = () => {
