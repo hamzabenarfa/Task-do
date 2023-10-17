@@ -13,8 +13,6 @@ const Main = ({data}:MainProps) => {
     setMainData(data);
   }, [data]);
 
-  console.log("🚀 ~ file: main.tsx:8 ~ Main ~ mainData:", mainData);
-
   
 
   return (
@@ -22,7 +20,7 @@ const Main = ({data}:MainProps) => {
       <RadioGroup defaultValue="option-one">
         <div className="flex items-center space-x-2">
           <RadioGroupItem value="option-one" id="option-one" />
-          <Label htmlFor="option-one">{data}</Label>
+          <Label htmlFor="option-one" className="font-light">{data}</Label>
         </div>
       </RadioGroup>
     </main>
