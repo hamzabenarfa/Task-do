@@ -1,12 +1,13 @@
 import Header from "../_components/header";
 import Menu from "../_components/menu";
 const AllTasks = () => {
+  
   return (
     <div>
       <Header title="ALL TASKS"/>
       {/* <Main /> */}
       <div className="fixed bottom-0 left-0 w-full ">
-        <Menu />
+        <Menu updateData={()=>""} />
       </div>
     </div>
   );

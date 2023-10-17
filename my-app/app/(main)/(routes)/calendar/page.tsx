@@ -4,7 +4,7 @@ const Calendar = () => {
   return (
     <div>
       <div className="fixed bottom-0 left-0 w-full ">
-        <Menu />
+        <Menu updateData={()=>""} />
       </div>
     </div>
   );
