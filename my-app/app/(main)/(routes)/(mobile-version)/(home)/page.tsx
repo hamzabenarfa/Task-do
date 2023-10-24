@@ -4,7 +4,7 @@ import Search from "./_component/search";
 
 const Home = () => {
   return (
-    <div className="md:mx-1/2">
+    <div className="">
       <Search />
       <MyList />
       <div className="fixed bottom-0 left-0 w-full ">
