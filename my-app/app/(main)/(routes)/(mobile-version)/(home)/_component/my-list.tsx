@@ -9,7 +9,6 @@ const MyList = () => {
         <Board title="Personal" number={3} />
         <Board title="Work" number={11} />
         <Board title="Grocery List" number={4} />
-
         <NewBoard />
       </div>
     </div>
