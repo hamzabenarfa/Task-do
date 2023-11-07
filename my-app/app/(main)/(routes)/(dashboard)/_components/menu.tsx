@@ -5,7 +5,7 @@ import { Home } from "lucide-react";
 import Link from "next/link";
 
 interface MenuProps {
-    updateData: (newData:string) => void;
+    updateData: (newData:string) => void ;
 }
 
 const Menu = ({updateData}:MenuProps) => {

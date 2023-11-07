@@ -14,7 +14,7 @@ const MyDay = () => {
     <div>
       <Header title="MY DAY"/>
       <Main data={mainData} />
-        <Menu updateData={updateMainData}/>
+      <Menu updateData={updateMainData}/>
     </div>
   );
 };
