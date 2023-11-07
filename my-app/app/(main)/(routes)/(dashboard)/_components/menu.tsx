@@ -21,7 +21,7 @@ const Menu = ({updateData}:MenuProps) => {
         })
     };
     return ( 
-    <div className="flex items-center justify-center m-4 pt-2 ">
+    <div className="fixed bottom-0 left-0 w-full flex items-center justify-center m-4 pt-2 ">
        <Link href="/"> <Home size={28} className="text-blue-500 ml-2 " /></Link>
         <Input type="search"
                className="border border-gray-200 shadow-lg h-14 rounded-3xl ml-4"

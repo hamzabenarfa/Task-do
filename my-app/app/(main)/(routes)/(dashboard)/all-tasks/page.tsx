@@ -8,9 +8,7 @@ const AllTasks = () => {
     <div>
       <Header title="ALL TASKS"/>
       {/* <Main /> */}
-      <div className="fixed bottom-0 left-0 w-full ">
         <Menu updateData={()=>""} />
-      </div>
     </div>
   );
 };

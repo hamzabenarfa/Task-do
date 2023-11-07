@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const Menu = () => {
     return ( 
-        <div className="flex items-center justify-evenly m-4 border p-2 border-gray-100 shadow-lg rounded-3xl">
+        <div className="fixed bottom-0 left-0 w-full flex items-center justify-evenly m-4 border p-2 border-gray-100 shadow-lg rounded-3xl">
             <div className="flex items-center justify-center flex-col text-blue-500 ">
              <Link href="myday"><Shell size={24} /></Link>
                 <p className="text-xs fony-bold">My Day</p>

@@ -14,9 +14,7 @@ const MyDay = () => {
     <div>
       <Header title="MY DAY"/>
       <Main data={mainData} />
-      <div className="fixed bottom-0 left-0 w-full ">
         <Menu updateData={updateMainData}/>
-      </div>
     </div>
   );
 };
