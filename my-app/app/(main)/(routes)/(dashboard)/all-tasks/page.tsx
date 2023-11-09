@@ -5,7 +5,7 @@ import Menu from "../_components/menu";
 const AllTasks = () => {
   
   return (
-    <div>
+    <div className="min-h-screen flex flex-col justify-between">
       <Header title="ALL TASKS"/>
       {/* <Main /> */}
         <Menu updateData={()=>""} />

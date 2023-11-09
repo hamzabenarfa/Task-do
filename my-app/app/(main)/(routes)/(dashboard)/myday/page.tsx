@@ -11,9 +11,11 @@ const MyDay = () => {
     setMainData(newData);
   };
   return (
-    <div>
+    <div className="min-h-screen flex flex-col justify-between">
+      <div>
       <Header title="MY DAY"/>
       <Main data={mainData} />
+      </div>
       <Menu updateData={updateMainData}/>
     </div>
   );
