@@ -1,58 +1,45 @@
-const fs = require('fs');
-const { convertToMinutes,contextValue } = require('./helpers.js'); 
-const {scheduleTasks} = require('./s.js');
+const { format, addMinutes, setHours, setMinutes, isBefore, isAfter } = require('date-fns');
+const scheduleItems = require('./data.js');
 
-let rawdata = fs.readFileSync('src/data.json');
-let tasks = JSON.parse(rawdata);
+const startTimeConst = 8;
+const endTimeConst = 17;
 
-let START_WORK_TASKS = "08:00";
-let END_WORK_TASKS = "17:00";
-let START_HOME_TASKS = "18:00";
-let END_HOME_TASKS = "22:00";
-let TASKS = tasks;
-let OUTPUT = [];
-let NEXT_DAY_TASKS = [];
+const generateSchedule = (scheduleItems) => {
+  const startTime = setHours(setMinutes(new Date(), 0), startTimeConst); 
+  
+  const endTime = setHours(setMinutes(new Date(), 0), endTimeConst);
 
+  const schedule = [];
 
+  let currentDateTime = startTime;
+  
+  //sort sleon priority
+ scheduleItems.sort((a, b) => a.priority - b.priority);
 
+  scheduleItems.forEach((item) => {
+    const scheduledEndTime = addMinutes(currentDateTime, item.duration);
 
-function solve() {
-  let workTasks = TASKS.filter(task => task.context === "Work");
-  let homeTasks = TASKS.filter(task => task.context === "Home");
+    // Ensure the scheduled time doesn't exceed the end time
+    if (isBefore(scheduledEndTime, endTime) || isAfter(currentDateTime, endTime)) {
+      schedule.push({
+        id: item.id,
+        task: item.task,
+        priority: item.priority,
+        scheduledTime: format(currentDateTime, "HH:mm"),
+        endTime: format(scheduledEndTime, "HH:mm"),
+      });
 
-  // Sort tasks by priority, then id
-  workTasks.sort((task1, task2) => {
-    if (task1.priority !== task2.priority) {
-      return task2.priority - task1.priority;
-    } else {
-      return task1.id - task2.id;
+      currentDateTime = scheduledEndTime;
     }
   });
 
-  homeTasks.sort((task1, task2) => {
-    if (task1.priority !== task2.priority) {
-      return task2.priority - task1.priority;
-    } else {
-      return task1.id - task2.id;
-    }
-  });
+  return schedule;
+};
 
-  // Schedule work tasks first, then home tasks
-  scheduleTasks(workTasks, START_WORK_TASKS, END_WORK_TASKS, OUTPUT, NEXT_DAY_TASKS);
-  scheduleTasks(homeTasks, START_HOME_TASKS, END_HOME_TASKS, OUTPUT, NEXT_DAY_TASKS);
 
-  // Sort output by context, start time, and priority
-  OUTPUT.sort((task1, task2) => {
-    if (contextValue(task1.context) !== contextValue(task2.context)) {
-      return contextValue(task1.context) - contextValue(task2.context);
-    } else if (convertToMinutes(task1.start_at) !== convertToMinutes(task2.start_at)) {
-      return convertToMinutes(task1.start_at) - convertToMinutes(task2.start_at);
-    } else {
-      return task2.priority - task1.priority;
-    }
-  });
 
-  console.log(OUTPUT);
-  //console.log(NEXT_DAY_TASKS);
-}
-solve();
+// Generate the schedule
+const generatedSchedule = generateSchedule(scheduleItems);
+
+// Display the generated schedule
+console.log(JSON.stringify(generatedSchedule, null, 2));
