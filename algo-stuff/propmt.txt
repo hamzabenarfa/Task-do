@@ -1,1 +1,18 @@
 no i ment i want to fix the scedule i want imporantnt meeting to be ffixed at certain time then fill the rest of time with else 
+
+no it false what i want is if i got the first meeting on 3pm it should be fixed on scheduledTime 3pm or 15:00 then its end time is Schedulte time +duration i want this to be bfore sorting with priority
+
+
+it still wont do what i want , i want is first to put all tasks that got start_at in their right scheduledTime like if i got this     { id: 1, task: 'Meeting at 3Pm',  start_at: '15:00', duration: 30 }, it should be at : {
+    "id": 1,
+    "task": "Meeting at 3Pm",
+    "scheduledTime": "15:00",
+    "endTime": "15:30"
+  }, then sort the rest by priority
+. Let's modify the code to fill the gaps between scheduled tasks with additional tasks. 
+
+
+
+make search algo for filling gaps
+
+search for gaps and fill them with tasks like if there is free time between each endtime and the next scheduletetime fill them 

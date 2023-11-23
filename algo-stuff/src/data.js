@@ -1,9 +1,9 @@
 module.exports = [
-    { id: 1, task: 'Meeting',  start_at: '15:00', duration: 30 }, // 1 hour meeting
+    { id: 1, task: 'Meeting at 3pm',  start_at: '15:00', duration: 30 }, // 1 hour meeting
     { id: 2, task: 'Work on Project', priority: 1, duration: 120 }, // 2 hours working
     { id: 3, task: 'Lunch', priority: 2, duration: 30 }, // 30 minutes for lunch
     { id: 4, task: 'Read Emails', priority: 2, duration: 45 }, // 45 minutes for emails
-    { id: 5, task: 'Exercise', priority: 1, duration: 60 }, // 1 hour workout
+    { id: 5, task: 'Exercise', priority: 1, duration: 10 }, // 1 hour workout
     { id: 6, task: 'Client Call', priority: 3, duration: 45 }, // 45 minutes client call
     { id: 7, task: 'Research', priority: 2, duration: 90 }, // 1.5 hours of research
     { id: 8, task: 'Coding', priority: 1, duration: 180 }, // 3 hours of coding
@@ -19,7 +19,10 @@ module.exports = [
     { id: 18, task: 'Review Agenda', priority: 3, duration: 15 }, // 15 minutes reviewing agenda
     { id: 19, task: 'Coffee Break', priority: 2, duration: 20 }, // 20 minutes coffee break
     { id: 20, task: 'Stretching', priority: 1, duration: 10 }, // 10 minutes stretching
-    { id: 21, task: 'Meeting',  start_at: '10:00', duration: 60 }, // 1 hour meeting
+    { id: 21, task: 'Meeting at 10am',  start_at: '10:00', duration: 60 }, // 1 hour meeting
+    { id: 22, task: 'Meeting scrum at 8am',  start_at: '8:00', duration: 20 }, // 1 hour meeting
+
+  
     // Add more tasks with different durations
   ];
   
