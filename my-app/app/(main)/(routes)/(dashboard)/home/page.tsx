@@ -4,7 +4,7 @@ import Search from "./_component/search";
 
 const Home = () => {
   return (
-    <div className="lg:mx-40 xl:mx-60 min-h-screen flex flex-col justify-between">
+    <div className="flex min-h-screen flex-col justify-between lg:mx-40 xl:mx-60	">
       <div>
         <Search />
         <MyList />

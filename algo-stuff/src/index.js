@@ -11,6 +11,7 @@ const adjustedScheduleItems = scheduleItems.map((item) => {
     const adjustedStartTime = setHours(setMinutes(new Date(), minutes), hours);
     return { ...item, start_at: adjustedStartTime };
   }
+
   return item;
 });
 
