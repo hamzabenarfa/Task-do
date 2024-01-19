@@ -1,8 +1,8 @@
 module.exports = [
   { id: 1, task: "Meeting at 3pm", start_at: "11:00", duration: 30 }, // 1 hour meeting
   { id: 3, task: "Meeting scrum at 8am", start_at: "9:00", duration: 20 }, // 1 hour meeting
-
-  { id: 2, task: "Work on Project", priority: 1, duration: 20 }, // 2 hours working
+  
+  { id: 2, task: "Work on Project", priority: 1, duration: 10 }, // 2 hours working
   { id: 5, task: "Exercise", priority: 1, duration: 20 }, // 1 hour workout
   { id: 8, task: "Coding", priority: 1, duration: 20 },
   { id: 4, task: "Read Emails", priority: 2, duration: 30 }, // 45 minutes for emails
