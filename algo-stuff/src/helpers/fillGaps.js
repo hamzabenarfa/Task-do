@@ -1,18 +1,18 @@
-const { addMinutes, format, setHours, setMinutes, isBefore, differenceInMinutes,parseISO } = require("date-fns");
+const { addMinutes, format, setHours, setMinutes, isBefore, differenceInMinutes, parseISO } = require("date-fns");
 
-function fillGaps(gaps, sortedRemainingData){
+function fillGaps(gaps, sortedRemainingData) {
     const result = [];
-     for (gap of gaps){
-      
-        if(gap.duration !== null){
-     
-           const filled= fillGap(gap.start_at,gap.end_at,gap.duration,sortedRemainingData)
-            result.push(filled)
-            continue
+
+    for (const gap of gaps) {
+        if (gap.duration !== null) {
+            const filled = fillGap(gap.start_at, gap.end_at, gap.duration, [...sortedRemainingData]); // Pass a copy of sortedRemainingData
+            result.push(filled);
+            continue;
         }
-        result.push(gap)
+        result.push(gap);
     }
-    console.log(result)
+
+    console.log(result);
 }
 
 function fillGap(start, end, duration, remainingData) {
@@ -32,8 +32,5 @@ function fillGap(start, end, duration, remainingData) {
 
     return res;
 }
-    
-
-
 
 module.exports = fillGaps;
