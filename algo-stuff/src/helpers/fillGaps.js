@@ -1,4 +1,5 @@
 const { addMinutes, format } = require('date-fns');
+const parseTime = require('./parseTime.js');
 
 function fillGaps(gaps, sortedRemainingData, start, end) {
     const result = [];
@@ -6,7 +7,6 @@ function fillGaps(gaps, sortedRemainingData, start, end) {
 
     for (const gap of gaps) {
         if (gap.duration !== null) {
-            // Pass a copy of sortedRemainingData and the set of used IDs
             const filled = fillGap(gap.start_at, gap.end_at, gap.duration, [...sortedRemainingData], usedIds); 
             result.push(filled);
             continue;
@@ -14,7 +14,7 @@ function fillGaps(gaps, sortedRemainingData, start, end) {
         result.push(gap);
     }
 
-    console.log(result);
+    return result.flat();
 }
 
 function fillGap(start, end, duration, remainingData, usedIds) {
@@ -47,12 +47,6 @@ function fillGap(start, end, duration, remainingData, usedIds) {
     return res;
 }
 
-// Helper function to parse a time string (HH:mm) into a Date object
-function parseTime(time) {
-    const [hours, minutes] = time.split(':').map(Number);
-    const date = new Date();
-    date.setHours(hours, minutes, 0, 0);
-    return date;
-}
+
 
 module.exports = fillGaps;
