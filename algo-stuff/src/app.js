@@ -1,26 +1,35 @@
 const data = require('./data/data.js');
-const sortedData = require('./helpers/sortedData.js');
-const getGaps = require('./helpers/getGaps.js');
-const fillGaps = require('./helpers/fillGaps.js');
+const { sortedData, dataSegregator } = require('./helpers/dataProcessor.js');
+const Scheduler = require('./models/scheduler.js');
+const fillTimeSlots = require('./helpers/fillTimeSlots.js');
+const OperationalHours = require('./models/OperationalHours.js');
+
 const organizeByContext = require('./helpers/organizeByContext.js');
 
-const startingTime = 8;
-const endingTime = 12;
+
+const MyDay = new OperationalHours({
+    startingTime: "8:00",
+    endingTime: "17:00",
+})
+
+const [appointments, tasks] = dataSegregator(data);
+const [sortedApointments, sortedTasks]  = sortedData(appointments, tasks);
+
+const scheduler = new Scheduler(sortedApointments, MyDay);
+scheduler.getTimeSlots();
+//console.log("🚀 ~ gaps:", scheduler.schedule)
+
+ const res = fillTimeSlots(scheduler.schedule, sortedTasks);
+ console.log("🚀 ~ res:", res)
+
+// console.log(organizeByContext(res, "job", "8:00", "9:00"))
+
+// console.log(organizeByContext(res, 'job', "9:00", "13:00"))
 
 
+// const {parse ,format} = require('date-fns');
 
-const [sortedimportantTasks, sortedRemainingData]  = sortedData(data);
+// const parsedStartTime = parse("8:00", 'HH:mm', new Date());
 
-const gaps = getGaps(sortedimportantTasks, sortedRemainingData, startingTime, endingTime);
-
-const res = fillGaps(gaps, sortedRemainingData, startingTime, endingTime);
-
-
-
-
-
-console.log(organizeByContext(res,gaps, 'home', "8:00", "9:00"))
-
-console.log(organizeByContext(res,gaps, 'home', "9:00", "11:00"))
-
-// console.log(organizeByContext(gapsFilled, 'home', '10:00', '11:00'))
+// console.log( format(parsedStartTime,"HH:mm"))
+// console.log( parsedStartTime.getHours())

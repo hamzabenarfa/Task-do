@@ -1,0 +1,14 @@
+Filter tasks within the specified time interval and context:
+
+Iterate through your list of tasks.
+Check if the task falls within the specified time interval and context.
+Filter and collect tasks that meet these criteria.
+Organize tasks by priority and duration:
+
+Sort the filtered tasks based on priority (ascending order).
+Then, sort the tasks within each priority group based on duration (ascending order).
+Build the output structure with time slots and organized tasks:
+
+Initialize an empty array to store the result.
+Create time slots within the specified interval and context.
+For each time slot, add the organized tasks from the sorted list.

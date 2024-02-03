@@ -1,34 +1,31 @@
-const { addMinutes, format } = require('date-fns');
-const parseTime = require('./parseTime.js');
+const { addMinutes } = require('date-fns');
 
-function fillGaps(gaps, sortedRemainingData, start, end) {
+function fillTimeSlots(timeSlots, sortedTasks) {
     const result = [];
-    const usedIds = new Set();  // Create a set to keep track of used task IDs
+    const alreadyScheduled = new Set();  // Create a set to keep track of used task IDs
 
-    for (const gap of gaps) {
-        if (gap.duration !== null) {
-            const filled = fillGap(gap.start_at, gap.end_at, gap.duration, [...sortedRemainingData], usedIds); 
+    timeSlots.map((timeSlot)=>{
+        if(!timeSlot.isAppointments){
+            const filled = fillTimeSlot(timeSlot, [...sortedTasks], alreadyScheduled); 
             result.push(filled);
-            continue;
         }
-        result.push(gap);
-    }
+    })
 
-    return result.flat();
+    return result;
 }
 
-function fillGap(start, end, duration, remainingData, usedIds) {
+function fillTimeSlot({start, duration}, remainingData, usedIds) {
     const res = [];
     const addedIds = new Set();
-    let currentTime = parseTime(start);
+    let currentTime = start;
 
     while (remainingData.length > 0 && duration > 0) {
         const data = remainingData[0];
 
         if (duration - data.duration >= 0 && !addedIds.has(data.id) && !usedIds.has(data.id)) {
-            const taskStart = format(currentTime, 'HH:mm');
+            const taskStart = currentTime;
             currentTime = addMinutes(currentTime, data.duration);
-            const taskEnd = format(currentTime, 'HH:mm');
+            const taskEnd = currentTime;
 
             const taskWithTime = {
                 ...data,
@@ -49,4 +46,4 @@ function fillGap(start, end, duration, remainingData, usedIds) {
 
 
 
-module.exports = fillGaps;
+module.exports = fillTimeSlots;

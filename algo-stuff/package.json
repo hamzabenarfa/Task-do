@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon src/app.js",
-    "start" : "node oop/index.js"
+    "start" : "nodemon remake/index.js"
   },
   "dependencies": {
     "date-fns": "^2.30.0",

@@ -1,43 +1,49 @@
-const { format, addMinutes, parse, isBefore, isAfter } = require('date-fns');
-const parseTime = require('./parseTime.js');
+const { format, addMinutes, parse, isBefore, isAfter, isWithinInterval } = require('date-fns');
 
-function organizeByContext(tasks,gaps, context, startTime, endTime) {
+function organizeByContext(tasks, context, startTime, endTime) {
     const formatString = 'HH:mm';
-    const parsedStartTime = parseTime(startTime, formatString);
-    const parsedEndTime = parseTime(endTime, formatString);
+    const parsedStartTime = parse(startTime, formatString, new Date());
+    const parsedEndTime = parse(endTime, formatString, new Date());
+    const timeInterval = { start: parsedStartTime, end: parsedEndTime };
 
     const filteredTasks = tasks.filter(task => {
         if (task.context !== context) return false;
-        const taskStartTime = parseTime(task.start_at, formatString);
+        const taskStartTime = parse(task.start_at, formatString, new Date());
         const taskEndTime = addMinutes(taskStartTime, task.duration);
-        return isBefore(taskStartTime, parsedEndTime) && isAfter(taskEndTime, parsedStartTime);
+        return isWithinInterval(taskStartTime, timeInterval) || isWithinInterval(taskEndTime, timeInterval);
     });
 
     const sortedTasks = filteredTasks.sort((a, b) => {
-        return parseTime(a.start_at, formatString) - parseTime(b.start_at, formatString);
+        return parse(a.start_at, formatString, new Date()) - parse(b.start_at, formatString, new Date());
     });
 
-    let lastEndTime = parsedStartTime;
-    const organizedTasks = sortedTasks.map(task => {
-        const taskStartTime = lastEndTime;
-        const taskEndTime = addMinutes(taskStartTime, task.duration);
+    let organizedTasks = [];
+    for (const task of sortedTasks) {
+        const taskStartTime = parse(task.start_at, formatString, new Date());
+        const originalTaskEndTime = addMinutes(taskStartTime, task.duration);
 
-        if (isAfter(taskEndTime, parsedEndTime)) {
-            return null;
+        if (isBefore(originalTaskEndTime, parsedStartTime) || isAfter(taskStartTime, parsedEndTime)) {
+            continue;
         }
 
-        lastEndTime = taskEndTime;
+        const adjustedStartTime = isBefore(taskStartTime, parsedStartTime) ? parsedStartTime : taskStartTime;
+        const adjustedEndTime = isAfter(originalTaskEndTime, parsedEndTime) ? parsedEndTime : originalTaskEndTime;
 
-        return {
+        if (isAfter(adjustedStartTime, parsedEndTime)) {
+            continue;
+        }
+
+      
+        organizedTasks.push({
             id: task.id,
             task: task.task,
             priority: task.priority,
             duration: task.duration,
             context: task.context,
-            start_at: format(taskStartTime, formatString),
-            end_at: format(taskEndTime, formatString)
-        };
-    }).filter(task => task !== null);
+            start_at: format(adjustedStartTime, formatString),
+            end_at: format(adjustedEndTime, formatString)
+        });
+    }
 
     const organizedData = {
         start: format(parsedStartTime, formatString),
@@ -48,6 +54,5 @@ function organizeByContext(tasks,gaps, context, startTime, endTime) {
 
     return organizedData;
 }
-
 
 module.exports = organizeByContext;

@@ -16,3 +16,25 @@ it still wont do what i want , i want is first to put all tasks that got start_a
 make search algo for filling gaps
 
 search for gaps and fill them with tasks like if there is free time between each endtime and the next scheduletetime fill them 
+
+-----------------------------------
+so im making this app in nodejs using date-fns , it about orgnising tasks smartly help me find good logic and then  code it , so i have this data exemple : wich i will explain :   { id: 1, task: "Meeting at 11pm", start_at: "11:00", duration: 30, context: "work" },  { id: 2, task: "Work on Project", priority: 1, duration: 10, context: "work" },
+
+i got two diffrent type of data the first task with start_at wich is important , the second is normal tasks , they all have duration , so the user can input  an interval lets say from 8 to 10 with context of work  the function will return an array like this : [
+  {start:8,
+  end:10,
+  context:home,
+  tasks:[
+    {
+      id: 9,
+      task: 'Break',
+      priority: 2,
+      duration: 15,
+      context: 'work',
+      start_at: '10:35',
+      end_at: '10:50'
+    },
+    {},
+    {},
+    {}
+  ]}, with tasks organised  from priority and duration ,
