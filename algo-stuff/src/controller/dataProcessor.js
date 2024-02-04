@@ -1,4 +1,4 @@
-const formatTime = require("./formatTime.js");
+const formatTime = require("../helper/formatTime.js");
 const Appointment = require("../models/appointment.js");
 const Task = require("../models/task.js");
 

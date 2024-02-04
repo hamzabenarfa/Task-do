@@ -1,10 +1,10 @@
 const data = require('./data/data.js');
-const { sortedData, dataSegregator } = require('./helpers/dataProcessor.js');
+const { sortedData, dataSegregator } = require('./controller/dataProcessor.js');
 const Scheduler = require('./models/scheduler.js');
-const fillTimeSlots = require('./helpers/fillTimeSlots.js');
+const fillTimeSlots = require('./controller/fillTimeSlots.js');
 const OperationalHours = require('./models/OperationalHours.js');
 
-const organizeByContext = require('./helpers/organizeByContext.js');
+const organizeByContext = require('./controller/organizeByContext.js');
 
 
 const MyDay = new OperationalHours({

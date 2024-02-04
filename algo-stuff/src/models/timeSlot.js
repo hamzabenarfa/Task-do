@@ -1,3 +1,4 @@
+const { parse, differenceInMinutes } = require('date-fns');
 class TimeSlot {
     constructor(start_at, end_at) {
         this._startAt = start_at;
@@ -7,8 +8,8 @@ class TimeSlot {
     }
 
     get startAt() {
-        return this._start_at;
-    }
+        return this._startAt;
+    }   
 
     get startAtAsDate() {
         return parse(this.startAt, 'HH:mm', new Date());
@@ -19,17 +20,16 @@ class TimeSlot {
     }
 
     get endAtAsDate() {
-        return parse(this.startAt, 'HH:mm', new Date())
+        return parse(this.endAt, 'HH:mm', new Date())
     }
 
     get scheduledItems() {
         return this._scheduledItems;
     }
     
-    get duration(){
-        return this.endAt - this.startAt;
+    get duration(){ 
+        return differenceInMinutes(this.endAt, this.startAt); 
     }
-
     set startAt(startAt) {
         this._startAt = startAt;
     }
