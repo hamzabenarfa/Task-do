@@ -12,6 +12,13 @@ const MyDay = new OperationalHours({
     endingTime: "17:00",
 })
 
+/**
+ * input of time of day 
+ * route : /time 
+ * body :{}
+ * 
+ */
+
 const [appointments, tasks] = dataSegregator(data);
 const [sortedApointments, sortedTasks]  = sortedData(appointments, tasks);
 
@@ -22,14 +29,10 @@ scheduler.getTimeSlots();
  const res = fillTimeSlots(scheduler.schedule, sortedTasks);
  console.log("🚀 ~ res:", res)
 
+
+ 
 // console.log(organizeByContext(res, "job", "8:00", "9:00"))
 
 // console.log(organizeByContext(res, 'job', "9:00", "13:00"))
 
 
-// const {parse ,format} = require('date-fns');
-
-// const parsedStartTime = parse("8:00", 'HH:mm', new Date());
-
-// console.log( format(parsedStartTime,"HH:mm"))
-// console.log( parsedStartTime.getHours())

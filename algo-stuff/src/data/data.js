@@ -11,8 +11,8 @@ module.exports = [
   { id: 20, task: "shower", priority: 1, duration: 20, context: "home" },
   { id: 21, task: "Breakfast", priority: 2, duration: 60, context: "home" },
 
-  { id: 8, task: "Coding", priority: 1, duration: 20, context: "job" },
-  { id: 10, task: "Brainstorming", priority: 1, duration: 75, context: "job" },
+  // { id: 8, task: "Coding", priority: 1, duration: 20, context: "job" },
+  // { id: 10, task: "Brainstorming", priority: 1, duration: 75, context: "job" },
   // { id: 4, task: "Read Emails", priority: 2, duration: 30, context: "job" },
   // { id: 6, task: "Client Call", priority: 3, duration: 40, context: "job" },
   // { id: 7, task: "Research", priority: 3, duration: 60, context: "job" },
