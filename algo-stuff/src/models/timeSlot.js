@@ -1,10 +1,12 @@
 const { parse, differenceInMinutes } = require('date-fns');
+const Task = require('./task');
 class TimeSlot {
     constructor(start_at, end_at) {
         this._startAt = start_at;
         this._endAt = end_at;
         this._scheduledItems = [];
         this._isAppointment = false;
+        this._duration = differenceInMinutes(this.endAt, this.startAt);
     }
 
     get startAt() {

@@ -2,50 +2,53 @@ const { addMinutes } = require('date-fns');
 
 function fillTimeSlots(timeSlots, sortedTasks) {
     const result = [];
-    const alreadyScheduled = new Set();  // Create a set to keep track of used task IDs
+    const alreadyScheduled = new Set(); // Create a set to keep track of used task IDs
 
-    timeSlots.map((timeSlot)=>{
-        if(!timeSlot._isAppointments){
-            const filled = fillTimeSlot(timeSlot, [...sortedTasks], alreadyScheduled); 
+    timeSlots.forEach((timeSlot) => {
+        if (!timeSlot._isAppointment) {
+            const clonedTimeSlot = { ...timeSlot, _scheduledItems: [...timeSlot._scheduledItems] };
+            
+            const filled = fillTimeSlot(clonedTimeSlot, [...sortedTasks], alreadyScheduled);
             result.push(filled);
-
+        } else {
+            result.push(timeSlot);
         }
-        
-    })
+    });
 
     return result;
 }
 
-function fillTimeSlot(timeSlot, remainingData, usedIds) {
-    const res = [];
-    const addedIds = new Set();
-    let currentTime = timeSlot.start;
-    while (remainingData.length > 0 && timeSlot.duration > 0) {
-        
-        const data = remainingData[0];
+function fillTimeSlot(timeSlot, remainingTasks, alreadyScheduled) {
+    let currentTime = timeSlot._startAt;
+    let remainingDuration = timeSlot._duration;
 
-        if (timeSlot.duration - data._duration >= 0 && !addedIds.has(data.id) && !usedIds.has(data.id)) {
+    while (remainingTasks.length > 0 && remainingDuration > 0) {
+        const task = remainingTasks[0];
+
+        if (remainingDuration - task._duration >= 0 && !alreadyScheduled.has(task._id)) {
             const taskStart = currentTime;
-            currentTime = addMinutes(currentTime, data.duration);
+
+            currentTime = addMinutes(currentTime, task._duration);
             const taskEnd = currentTime;
 
             const taskWithTime = {
-                ...data,
+                ...task,
                 start_at: taskStart,
                 end_at: taskEnd
             };
 
-            timeSlot.duration = timeSlot.duration - data.duration;
-            res.push(taskWithTime);
-            addedIds.add(data.id);
-            usedIds.add(data.id);
+            remainingDuration -= task._duration;
+          
+            timeSlot._scheduledItems.push(JSON.stringify(taskWithTime, null, 2));
+            alreadyScheduled.add(task._id);
         }
-        remainingData.shift();
+
+        remainingTasks.shift();
     }
 
-    return res;
+    timeSlot._duration = remainingDuration;
+
+    return timeSlot;
 }
-
-
 
 module.exports = fillTimeSlots;
