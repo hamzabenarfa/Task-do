@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 
-
 import { PlusCircle } from "lucide-react";
 import {
     Dialog,
@@ -30,6 +29,8 @@ import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/spinner";
 import MyToggle from "./toggle";
 
+import axios from "axios";
+
 const formSchema = z.object({
     task: z.string(),
     duration: z.number().min(1, {
@@ -45,11 +46,16 @@ const formSchema = z.object({
 
 const AddBtn = () => {
 
-    const [open, setOpen] = useState(false);
     const [task, setTask] = useState("");
     const [duration, setDuration] = useState(0);
+    const [context, setContext] = useState("");
+    const [priority, setPriority] = useState(0);
+    const [start_at, setStart_at] = useState("");
+    
+    const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
-
+    const [enabled, setEnabled] = useState(false);
+  
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -60,22 +66,34 @@ const AddBtn = () => {
             start_at: "",
         },
     });
+    //localhost:4000/task/create
 
-    /**
-     * appointment :
-     *  "task": "making ui",
-        "priority": 3,     condition ----- send int 
-        "duration": 120,
-        "context": "dev"
-     *  Task:
-        "task": "Meeting Scrum ",
-        "start_at": "9:00"  condition ----- send string
-        "duration": 20,
-        "context": "scrum",
-     */
 
-    const [enabled, setEnabled] = useState(false);
-    console.log("🚀 ~ AddBtn ~ enabled:", enabled)
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        try{
+            setLoading(true)
+            const res = await axios.post("http://localhost:4000/task/create",{
+                task,
+                duration,
+                context,
+                priority,
+                start_at
+
+            });
+            if (res) {
+                setLoading(false);
+                console.log(res.data)
+                setOpen(false);
+              } else {
+                console.log(res.data)
+
+                setLoading(false);
+              }
+        }catch(err){
+            console.log(err)
+        }
+    }    
 
 
     return (
@@ -97,7 +115,7 @@ const AddBtn = () => {
                     <div>
 
                         <Form {...form}>
-                            <form className="space-y-4">
+                            <form onSubmit={handleSubmit} className="space-y-4">
                                 <FormField
                                     control={form.control}
                                     name="task"
@@ -117,7 +135,7 @@ const AddBtn = () => {
                                     )}
                                 />
                                 {
-                                    !enabled ? (
+                                    enabled ? (
                                         <FormField
                                             control={form.control}
                                             name="start_at"
@@ -128,7 +146,7 @@ const AddBtn = () => {
                                                         <Input
                                                             placeholder="Enter your start time"
                                                             {...field}
-                                                            onChange={(e) => setTask(e.target.value)}
+                                                            onChange={(e) => setStart_at(e.target.value)}
                                                             required
                                                         />
                                                     </FormControl>
@@ -147,7 +165,7 @@ const AddBtn = () => {
                                                         <Input
                                                             placeholder="Enter your priority"
                                                             {...field}
-                                                            onChange={(e) => setTask(e.target.value)}
+                                                            onChange={(e) => setPriority(parseInt(e.target.value))}
                                                             required
                                                         />
                                                     </FormControl>
@@ -168,7 +186,7 @@ const AddBtn = () => {
                                                 <Input
                                                     placeholder="Enter your duration"
                                                     {...field}
-                                                    onChange={(e) => setPlace(e.target.value)}
+                                                    onChange={(e) => setDuration(parseInt(e.target.value))}
                                                     required
                                                 />
                                             </FormControl>
@@ -186,7 +204,7 @@ const AddBtn = () => {
                                                 <Input
                                                     placeholder="Enter your context"
                                                     {...field}
-                                                    onChange={(e) => setDuration(parseInt(e.target.value))}
+                                                    onChange={(e) => setContext(e.target.value)}
                                                     required
                                                 />
                                             </FormControl>
