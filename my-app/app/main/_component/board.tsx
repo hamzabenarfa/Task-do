@@ -13,7 +13,7 @@ const Board = ({ number, title }: BoardProps) => {
   
   const id = 1;
   const onClick = () => {
-    router.push(`/${id}`);
+    router.push(`/home/${id}`);
 
   };
 

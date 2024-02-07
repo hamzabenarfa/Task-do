@@ -2,7 +2,7 @@ import Menu from "./_component/menu";
 import MyList from "./_component/my-list";
 import Search from "./_component/search";
 
-const Home = () => {
+const Main = () => {
   return (
     <div className="flex min-h-screen flex-col justify-between lg:mx-40 xl:mx-60	">
       <div>
@@ -14,4 +14,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Main;

@@ -3,15 +3,16 @@ import { useState,useEffect } from "react";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
-interface MainProps {
-  data: string;
-}
+// interface MainProps {
+//   data: string;
+// }
 
-const Main = ({data}:MainProps) => {
-  const [mainData, setMainData] = useState(data);
-  useEffect(() => {
-    setMainData(data);
-  }, [data]);
+const Main = ({data}:any) => {
+  // const [mainData, setMainData] = useState({});
+
+  // useEffect(() => {
+  //   setMainData(data);
+  // }, [data]);
 
   
 
@@ -20,9 +21,10 @@ const Main = ({data}:MainProps) => {
       <RadioGroup defaultValue="option-one">
         <div className="flex items-center space-x-2">
           <RadioGroupItem value="option-one" id="option-one" />
-          <Label htmlFor="option-one" className="font-light">{data}</Label>
+          <Label htmlFor="option-one" className="font-light">item.data</Label>
         </div>
       </RadioGroup>
+      
     </main>
   );
 };
