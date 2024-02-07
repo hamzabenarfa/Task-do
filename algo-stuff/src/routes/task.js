@@ -1,6 +1,5 @@
-// routes/task.js
 const router = require('express').Router();
-const createTask = require('../service/task');
+const {createTask,getTasks} = require('../service/task');
 
 router.post('/create', async (req, response) => {
     const taskData = req.body; 

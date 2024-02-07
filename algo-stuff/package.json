@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon src/app.js",
-    "start": "nodemon src/index.js"
+    "dev:algo": "nodemon src/app.js",
+    "dev": "nodemon src/index.js",
+    "start":"node src/index.js"
   },
   "dependencies": {
     "@prisma/client": "^5.9.1",

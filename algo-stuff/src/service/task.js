@@ -1,5 +1,4 @@
-const { PrismaClient, Task } = require('@prisma/client');
-const { get } = require('../routes/task');
+const { PrismaClient } = require('@prisma/client');
 
 const prisma = new PrismaClient();
 
@@ -25,4 +24,4 @@ getTasks = async () => {
     }
 };
 
-module.exports = createTask;
+module.exports = {createTask, getTasks};

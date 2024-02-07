@@ -7,18 +7,15 @@ const OperationalHours = require('./models/OperationalHours.js');
 const organizeByContext = require('./controller/organizeByContext.js');
 
 
+//Get operational hours
 const MyDay = new OperationalHours({
     startingTime: "8:00",
-    endingTime: "17:00",
+    endingTime: "14:00",
 })
 
-/**
- * input of time of day 
- * route : /time 
- * body :{}
- * 
- */
+console.log(MyDay)
 
+//get tasks 
 const [appointments, tasks] = dataSegregator(data);
 const [sortedApointments, sortedTasks]  = sortedData(appointments, tasks);
 
@@ -26,13 +23,14 @@ const scheduler = new Scheduler(sortedApointments, MyDay);
 scheduler.getTimeSlots();
 //console.log("🚀 ~ gaps:", scheduler.schedule)
 
+
+// post in schedule table 
  const res = fillTimeSlots(scheduler.schedule, sortedTasks);
- console.log("🚀 ~ res:", res)
+// console.log("🚀 ~ res:", res)
 
 
- 
+
+
+
 // console.log(organizeByContext(res, "job", "8:00", "9:00"))
-
 // console.log(organizeByContext(res, 'job', "9:00", "13:00"))
-
-

@@ -8,8 +8,12 @@ app.use(express.json());
 const port = process.env.PORT || 4000;
 
 const taskRouter = require('./routes/task');
+const operationalHoursRouter = require('./routes/operationalHours');
+const appointmentRouter = require('./routes/appointment');
 
 app.use('/task', taskRouter);
+app.use('/operationalhours', operationalHoursRouter);
+app.use('/appointment', appointmentRouter);
 
 app.listen(port, () =>
   console.log(`
