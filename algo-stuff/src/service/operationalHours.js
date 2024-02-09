@@ -1,11 +1,14 @@
 const { PrismaClient } = require('@prisma/client');
-
 const prisma = new PrismaClient();
 
 createOperationalHours = async (operationalHoursData) => {
     try {
         const newOperationalHours = await prisma.operationalHours.create({
-            data: operationalHoursData
+            data: {
+                startingTime: operationalHoursData.startingTime,
+                endingTime: operationalHoursData.endingTime,
+                createdAt: new Date().toISOString().split('T')[0], 
+            }
         });
         return newOperationalHours;
     } catch (error) {
@@ -14,5 +17,22 @@ createOperationalHours = async (operationalHoursData) => {
     }
 };
 
+getTodaysOperationalHoursToday = async () => {
+    try{
+        const operationalHours = await prisma.operationalHours.findFirst(
+            {
+                where: {
+                    createdAt: new Date().toISOString().split('T')[0], 
+                }
+            }
+        );
+        return operationalHours;
+    }
+    catch (error) {
+        console.error('Error getting OperationalHours:', error);
+        throw error;
+    }
+}
 
-module.exports = createOperationalHours;
+
+module.exports = {createOperationalHours,getTodaysOperationalHoursToday};

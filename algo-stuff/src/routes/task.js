@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const {createTask,getTasks} = require('../service/task');
+const {createTask,getTasks,getAppointments} = require('../service/task');
 
 router.post('/create', async (req, response) => {
     const taskData = req.body; 
@@ -21,5 +21,16 @@ router.get('/get', async (req, response) => {
         response.status(500).json({ error: 'Error getting tasks' });
     }
 });
+
+router.get('/get/appointment', async (req, response) => {
+    try {
+        const tasks = await getAppointments();
+        response.json(tasks);
+    } catch (error) {
+        console.error('Error in GET /get:', error);
+        response.status(500).json({ error: 'Error getting tasks' });
+    }
+});
+
 
 module.exports = router;

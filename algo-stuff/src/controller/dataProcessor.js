@@ -1,4 +1,3 @@
-const formatTime = require("../helper/formatTime.js");
 const Appointment = require("../models/appointment.js");
 const Task = require("../models/task.js");
 
@@ -15,7 +14,7 @@ function byPriorityAndDuration(current, next) {
 
 function dataSegregator(data) {
   const { appointments, tasks } = data.reduce((acc, item) => {
-    if (item.start_at !== undefined) {
+    if (item.start_at !== undefined && item.priority == undefined) {
       let appointment = new Appointment(item)
       acc.appointments.push(appointment);
     } else {

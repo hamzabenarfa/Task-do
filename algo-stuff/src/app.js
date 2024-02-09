@@ -9,14 +9,13 @@ const organizeByContext = require('./controller/organizeByContext.js');
 
 //Get operational hours
 const MyDay = new OperationalHours({
-    startingTime: "8:00",
-    endingTime: "14:00",
+   
+    startingTime: '8:00',
+    endingTime: '17:00',
 })
-
-console.log(MyDay)
-
 //get tasks 
 const [appointments, tasks] = dataSegregator(data);
+console.log("🚀 ~ tasks:", tasks)
 const [sortedApointments, sortedTasks]  = sortedData(appointments, tasks);
 
 const scheduler = new Scheduler(sortedApointments, MyDay);
@@ -26,7 +25,7 @@ scheduler.getTimeSlots();
 
 // post in schedule table 
  const res = fillTimeSlots(scheduler.schedule, sortedTasks);
-// console.log("🚀 ~ res:", res)
+//console.log("🚀 ~ res:", res)
 
 
 

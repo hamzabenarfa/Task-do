@@ -14,7 +14,7 @@ createTask = async (taskData) => {
     }
 };
 
-getTasks = async () => {
+getAllTasks = async () => {
     try {
         const tasks = await prisma.task.findMany();
         return tasks;
@@ -22,6 +22,39 @@ getTasks = async () => {
         console.error('Error getting tasks:', error);
         throw error;
     }
+}
+
+getTasks = async () => {
+    try {
+        const tasks = await prisma.task.findMany(
+            {
+                where: {
+                    start_at :""
+                }
+            }
+        );
+        return tasks;
+    } catch (error) {
+        console.error('Error getting tasks:', error);
+        throw error;
+    }
 };
 
-module.exports = {createTask, getTasks};
+getAppointments = async () => {
+    try {
+        const appointments = await prisma.task.findMany(
+            {
+                where: {
+                    start_at : {not: ""}
+                }
+            }
+        );
+        return appointments;
+    } catch (error) {
+        console.error('Error getting appointments:', error);
+        throw error;
+    }
+};
+
+
+module.exports = {createTask,getAllTasks, getTasks,getAppointments};

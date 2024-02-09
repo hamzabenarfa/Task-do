@@ -15,6 +15,7 @@ model OperationalHours {
   id           Int       @id @default(autoincrement())
   startingTime String
   endingTime   String
+  createdAt    String @default("CURRENT_Date") @unique
 
 }
 
@@ -22,29 +23,25 @@ model OperationalHours {
 
 model Task {
   id          Int       @id @default(autoincrement())
-  
+  task        String    
+  priority    Int?
+  duration    Int
+  context     String
+  start_at    String    @default("")
+  end_at      String    @default("")
+  createdAt   DateTime  @default(now()) 
+}
+
+//get by today's date
+//sort tasks
+//post restults of the sorted schedule
+model Schedule {
+  id          Int       @id @default(autoincrement())
   task        String
   priority    Int
   duration    Int
   context     String
-
-  start_at    String    @default("")
-  end_at      String    @default("")
-}
-
-model Appointment {
-  id          Int       @id @default(autoincrement())
-
-  task        String
   start_at    String    
-  duration    Int
-  context     String
-  end_at      String    @default("")
-
-}
-
-// restults of the sorted schedule
-model Schedule {
-  id          Int       @id @default(autoincrement())
+  end_at      String    
 
 }

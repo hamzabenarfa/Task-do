@@ -1,5 +1,5 @@
 module.exports = [
-  { id: 3, task: "Meeting scrum at 9am", start_at: "9:00", duration: 20, context: "job" },
+  { id: 3, task: "Meeting scrum at 9am", start_at: "9:00", duration: 20, context: "job",priority: undefined  },
   
   { id: 1, task: "Meeting at 11pm", start_at: "11:00", duration: 30, context: "job" },
   //{ id: 30, task: "Meeting scrum at 1am", start_at: "13:00", duration: 40, context: "job" },
@@ -12,19 +12,19 @@ module.exports = [
   { id: 20, task: "shower", priority: 1, duration: 20, context: "home" },
   { id: 21, task: "Breakfast", priority: 2, duration: 60, context: "home" },
 
-  { id: 8, task: "Coding", priority: 1, duration: 20, context: "job" },
-  { id: 10, task: "Brainstorming", priority: 1, duration: 75, context: "job" },
-  { id: 4, task: "Read Emails", priority: 2, duration: 30, context: "job" },
-  { id: 6, task: "Client Call", priority: 3, duration: 40, context: "job" },
-  { id: 7, task: "Research", priority: 3, duration: 60, context: "job" },
-  { id: 9, task: "Break", priority: 2, duration: 15, context: "job" },
+  // { id: 8, task: "Coding", priority: 1, duration: 20, context: "job" },
+  // { id: 10, task: "Brainstorming", priority: 1, duration: 75, context: "job" },
+  // { id: 4, task: "Read Emails", priority: 2, duration: 30, context: "job" },
+  // { id: 6, task: "Client Call", priority: 3, duration: 40, context: "job" },
+  // { id: 7, task: "Research", priority: 3, duration: 60, context: "job" },
+  // { id: 9, task: "Break", priority: 2, duration: 15, context: "job" },
 
-  { id: 20, task: "Cook Dinner", duration: 45, context: "home" },
-  { id: 21, task: "Watch a Movie", duration: 120, context: "home" },
-  { id: 22, task: "Read a Book", duration: 60, context: "home" },
-  { id: 23, task: "Clean the House", duration: 90, context: "home" },
-  { id: 24, task: "Gardening", duration: 75, context: "home" },
-  { id: 25, task: "Family Time", duration: 180, context: "home" },
+  // { id: 20, task: "Cook Dinner", duration: 45, context: "home" },
+  // { id: 21, task: "Watch a Movie", duration: 120, context: "home" },
+  // { id: 22, task: "Read a Book", duration: 60, context: "home" },
+  // { id: 23, task: "Clean the House", duration: 90, context: "home" },
+  // { id: 24, task: "Gardening", duration: 75, context: "home" },
+  // { id: 25, task: "Family Time", duration: 180, context: "home" },
 
   // { id: 27, task: "Baking", duration: 30, context: "home" },
   // { id: 26, task: "Exercise at Home", duration: 30, context: "home" },

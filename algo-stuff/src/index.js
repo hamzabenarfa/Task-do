@@ -9,11 +9,11 @@ const port = process.env.PORT || 4000;
 
 const taskRouter = require('./routes/task');
 const operationalHoursRouter = require('./routes/operationalHours');
-const appointmentRouter = require('./routes/appointment');
+const scheduleRouter = require('./routes/schedule');
 
 app.use('/task', taskRouter);
 app.use('/operationalhours', operationalHoursRouter);
-app.use('/appointment', appointmentRouter);
+app.use('/schedule', scheduleRouter);
 
 app.listen(port, () =>
   console.log(`
