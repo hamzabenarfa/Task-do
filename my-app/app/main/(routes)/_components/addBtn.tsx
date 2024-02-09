@@ -83,10 +83,8 @@ const AddBtn = () => {
             });
             if (res) {
                 setLoading(false);
-                console.log(res.data)
                 setOpen(false);
               } else {
-                console.log(res.data)
 
                 setLoading(false);
               }
