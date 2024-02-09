@@ -15,7 +15,6 @@ const MyDay = new OperationalHours({
 })
 //get tasks 
 const [appointments, tasks] = dataSegregator(data);
-console.log("🚀 ~ tasks:", tasks)
 const [sortedApointments, sortedTasks]  = sortedData(appointments, tasks);
 
 const scheduler = new Scheduler(sortedApointments, MyDay);
@@ -25,7 +24,7 @@ scheduler.getTimeSlots();
 
 // post in schedule table 
  const res = fillTimeSlots(scheduler.schedule, sortedTasks);
-//console.log("🚀 ~ res:", res)
+console.log("🚀 ~ res:", res)
 
 
 

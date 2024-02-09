@@ -29,7 +29,6 @@ model Task {
   context     String
   start_at    String    @default("")
   end_at      String    @default("")
-  createdAt   DateTime  @default(now()) 
 }
 
 //get by today's date

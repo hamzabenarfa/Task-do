@@ -39,7 +39,11 @@ function fillTimeSlot(timeSlot, remainingTasks, alreadyScheduled) {
 
             remainingDuration -= task._duration;
           
-            timeSlot._scheduledItems.push(JSON.stringify(taskWithTime, null, 2));
+            //this works in the test but not in the app
+            // timeSlot._scheduledItems.push(JSON.stringify(taskWithTime, null, 2));
+
+            //this works in the app but not in the test
+            timeSlot._scheduledItems.push(taskWithTime);
             alreadyScheduled.add(task._id);
         }
 

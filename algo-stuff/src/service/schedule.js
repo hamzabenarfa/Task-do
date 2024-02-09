@@ -10,10 +10,8 @@ createSchedule = async (today, myTasksData) => {
            { startingTime:today.startingTime, endingTime:today.endingTime}
         )
         
-        const [appointments, tasks] = dataSegregator(myTasksData);
-        console.log("🚀 ~ createSchedule= ~ appointments:", appointments)
-        console.log("🚀 ~ createSchedule= ~ tasks:", tasks)
-
+        const [appointments, tasks] = dataSegregator(myTasksData);    
+ 
         const [sortedApointments, sortedTasks] = sortedData(appointments, tasks);
 
         const scheduler = new Scheduler(sortedApointments, myDay);
