@@ -72,4 +72,9 @@ const res = fillTimeSlots(scheduler.schedule, sortedTasks);
  * this func kinda works but it doesnt calculate the duration time of tasks
  * 
  */
-console.log(organizeByContext(scheduler.schedule, sortedTasks, "job", "8:00", "10:00"))
+const result= organizeByContext(scheduler.schedule, sortedTasks, "job", "8:00", "10:00")
+console.log("🚀 ~ result:", result)
+
+result.map((res) => {
+    console.log(res.scheduledTasks)
+})

@@ -7,13 +7,14 @@ module.exports = [
   //{ id: 1, task: "pray", start_at: "6:00", duration: 30, context: "home" },
 
   { id: 2, task: "job on Project", priority: 1, duration: 20, context: "job" },
-  { id: 21, task: "Breakfast", priority: 2, duration: 60, context: "home" },
-  { id: 20, task: "shower", priority: 1, duration: 20, context: "home" },
-  
   { id: 5, task: "Exercise", priority: 1, duration: 20, context: "job" },
   { id: 8, task: "Coding", priority: 1, duration: 20, context: "job" },
-  { id: 10, task: "Brainstorming", priority: 1, duration: 70, context: "job" },
+  
   { id: 9, task: "Break", priority: 2, duration: 15, context: "job" },
+
+  { id: 20, task: "shower", priority: 1, duration: 20, context: "home" },
+  { id: 21, task: "Breakfast", priority: 2, duration: 60, context: "home" },
+  { id: 10, task: "Brainstorming", priority: 1, duration: 70, context: "job" },
   { id: 4, task: "Read Emails", priority: 2, duration: 30, context: "job" },
   { id: 6, task: "Client Call", priority: 3, duration: 40, context: "job" },
   { id: 7, task: "Research", priority: 3, duration: 60, context: "job" },
