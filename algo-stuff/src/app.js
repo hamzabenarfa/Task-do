@@ -19,9 +19,7 @@ const scheduler = new Scheduler(sortedApointments, MyDay);
 scheduler.getTimeSlots();
 // console.log("🚀 ~ scheduler:", scheduler.schedule)
 
-
 const res = fillTimeSlots(scheduler.schedule, sortedTasks);
-
 
 
 /**
