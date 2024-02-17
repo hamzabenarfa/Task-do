@@ -7,16 +7,16 @@ app.use(express.json());
 
 const port = process.env.PORT || 4000;
 
-// const authenticateToken = require('../middleware/authenticationToken');
+const authenticateToken = require('./middleware/authenticationToken');
 
 const taskRouter = require('./routes/task');
 const operationalHoursRouter = require('./routes/operationalHours');
 const scheduleRouter = require('./routes/schedule');
 const userRouter = require('./routes/auth');
 
-app.use('/task', taskRouter);
-app.use('/operationalhours', operationalHoursRouter);
-app.use('/schedule', scheduleRouter);
+app.use('/task', authenticateToken,taskRouter);
+app.use('/operationalhours',authenticateToken, operationalHoursRouter);
+app.use('/schedule',authenticateToken, scheduleRouter);
 app.use('/auth', userRouter);
 
 app.listen(port, () =>
