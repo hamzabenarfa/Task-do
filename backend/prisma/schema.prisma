@@ -10,46 +10,44 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User{
-  id          Int       @id @default(autoincrement())
-  email       String    @unique
-  password    String
-  name        String
-  createdAt   String    @default("CURRENT_Date")
-  updatedAt   String    @default("CURRENT_Date")
-  
-
+model User {
+  id        Int    @id @default(autoincrement())
+  email     String @unique
+  password  String
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  tasks     Task[]
 }
 
 model OperationalHours {
-  id           Int       @id @default(autoincrement())
+  id           Int    @id @default(autoincrement())
   startingTime String
   endingTime   String
-  createdAt    String @default("CURRENT_Date") @unique
+  createdAt    String @unique @default("CURRENT_Date")
 }
 
-
-
 model Task {
-  id          Int       @id @default(autoincrement())
-  task        String    
-  priority    Int?
-  duration    Int
-  context     String
-  start_at    String    @default("")
-  end_at      String    @default("")
+  id       Int    @id @default(autoincrement())
+  task     String
+  priority Int?
+  duration Int
+  context  String
+  start_at String @default("")
+  end_at   String @default("")
+  userId   Int?
+  User     User?  @relation(fields: [userId], references: [id])
 }
 
 //get by today's date
 //sort tasks
 //post restults of the sorted schedule
 model Schedule {
-  id          Int       @id @default(autoincrement())
-  task        String
-  priority    Int
-  duration    Int
-  context     String
-  start_at    String    
-  end_at      String    
-
+  id       Int    @id @default(autoincrement())
+  task     String
+  priority Int
+  duration Int
+  context  String
+  start_at String
+  end_at   String
 }
