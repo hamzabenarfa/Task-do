@@ -81,9 +81,7 @@ const OperationalHours = () => {
         <>
             <Dialog open={open} onOpenChange={setOpen} >
                 <DialogTrigger asChild>
-                    <button>
                         <Clock2 size={24} className="text-gray-400" />
-                    </button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>

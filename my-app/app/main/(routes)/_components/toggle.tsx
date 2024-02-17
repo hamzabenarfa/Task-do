@@ -1,7 +1,7 @@
 "use client";
 import { Switch } from '@headlessui/react'
 
-export default function MyToggle({ enabled, setEnabled }) {
+export default function MyToggle({ enabled, setEnabled }:{enabled:boolean, setEnabled:React.Dispatch<React.SetStateAction<boolean>>}) {
     
   return (
     <Switch

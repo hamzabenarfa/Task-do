@@ -5,8 +5,7 @@ const AllTasks = () => {
 
   return (
     <MainLayout
-      headerTitle="ALL TASKS"
-
+      headerTitle="ALL TASKS" children={undefined} menuUpdateData={function (): void {} }
     >
       
     </MainLayout>

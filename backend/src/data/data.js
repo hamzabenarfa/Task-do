@@ -9,7 +9,8 @@ module.exports = [
   { id: 2, task: "job on Project", priority: 1, duration: 20, context: "job" },
   { id: 5, task: "Exercise", priority: 1, duration: 20, context: "job" },
   { id: 8, task: "Coding", priority: 1, duration: 20, context: "job" },
-  
+  { id: 13, task: "Organize Desk", priority: 1, duration: 30, context: "job" },
+
   { id: 9, task: "Break", priority: 2, duration: 15, context: "job" },
 
   { id: 20, task: "shower", priority: 1, duration: 20, context: "home" },
@@ -33,7 +34,6 @@ module.exports = [
   // { id: 29, task: "Meditation", duration: 15, context: "home" },
   { id: 11, task: "Review Documents", priority: 2, duration: 60, context: "job" },
   { id: 12, task: "Reply to Messages", priority: 2, duration: 20, context: "job" },
-  { id: 13, task: "Organize Desk", priority: 1, duration: 30, context: "job" },
   { id: 14, task: "Quick Call", priority: 3, duration: 10, context: "job" },
   { id: 15, task: "Short Break", priority: 2, duration: 25, context: "job" },
   { id: 16, task: "Update Task List", priority: 2, duration: 10, context: "job" },

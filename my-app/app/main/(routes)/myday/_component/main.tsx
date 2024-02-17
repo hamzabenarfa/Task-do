@@ -16,7 +16,8 @@ const Main = () => {
           id: item._id, 
           task: item._task,
           duration:item._duration,
-          startAt: item._startAt
+          startAt: item.start_at,
+          endAt:item.end_at
         }));
         setData(scheduledItems);
         setIsLoading(false);

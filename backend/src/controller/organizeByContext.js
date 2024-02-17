@@ -13,11 +13,11 @@ function organizeByContext(schedule, tasks, context, startTime, endTime) {
         .sort((a, b) => a._priority - b._priority || a._duration - b._duration);
 
     let currentTime = contextStartTime;
+
     const scheduledTasks = [];
-    let overflowTasks = []; // For tasks that don't fit in the initial time frame
+    let overflowTasks = []; 
 
     for (const task of contextTasks) {
-        // Check for any appointments that would conflict with the current task
         const conflictingAppointment = schedule.find(slot =>
             slot._isAppointment &&
             isWithinInterval(currentTime, {

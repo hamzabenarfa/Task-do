@@ -98,9 +98,9 @@ const AddBtn = () => {
         <>
             <Dialog open={open} onOpenChange={setOpen} >
                 <DialogTrigger asChild>
-                    <button>
+                    
                         <PlusCircle size={28} className="text-blue-500 ml-2" />
-                    </button>
+                   
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>
