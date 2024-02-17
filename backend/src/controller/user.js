@@ -1,16 +1,10 @@
 const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
-
-const bcrypt = require('bcrypt');
+const prisma = new PrismaClient();  
 
 const createUser = async (userData) => {  
-    const { password,...rest } = userData;
     try {
         const newUser = await prisma.user.create({
-            data: {
-                ...rest,
-                password: await bcrypt.hash(password, 10)
-            }
+            data: userData
         });
         return newUser;
     } catch (error) {
@@ -19,13 +13,14 @@ const createUser = async (userData) => {
     }
 };  
 
-const getUser = async (userData) => {
+const getUserByEmail = async (userData) => {
     try {
         const user = await prisma.user.findUnique({
             where: {
                 email: userData.email
             }
         });
+        
         return user;
     } catch (error) {
         console.error('Error getting user:', error);
@@ -33,4 +28,4 @@ const getUser = async (userData) => {
     }
 };
 
-module.exports = {createUser , getUser};
+module.exports = {createUser , getUserByEmail};

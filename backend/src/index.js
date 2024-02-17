@@ -10,7 +10,7 @@ const port = process.env.PORT || 4000;
 const taskRouter = require('./routes/task');
 const operationalHoursRouter = require('./routes/operationalHours');
 const scheduleRouter = require('./routes/schedule');
-const userRouter = require('./routes/Auth');
+const userRouter = require('./routes/auth');
 
 app.use('/task', taskRouter);
 app.use('/operationalhours', operationalHoursRouter);
