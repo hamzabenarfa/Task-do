@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { getUserByEmail} = require('../controller/user');
 const {register , login} = require('../controller/auth');
+
 router.post('/register',async (req, response) => {
     const userData = req.body;
     try {

@@ -7,6 +7,8 @@ app.use(express.json());
 
 const port = process.env.PORT || 4000;
 
+// const authenticateToken = require('../middleware/authenticationToken');
+
 const taskRouter = require('./routes/task');
 const operationalHoursRouter = require('./routes/operationalHours');
 const scheduleRouter = require('./routes/schedule');

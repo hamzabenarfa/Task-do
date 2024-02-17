@@ -1,16 +1,16 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const asyncHandler = require("express-async-handler");
+
 const { getUserByEmail } = require('./user');
 
-const bcrypt = require('bcrypt');
+const register = async (userData) => {
 
-const register = async (userData) => {  
-    
-    const { password,...rest } = userData;
+    const { password, ...rest } = userData;
     try {
-      
-
         const newUser = await prisma.user.create({
             data: {
                 ...rest,
@@ -22,32 +22,35 @@ const register = async (userData) => {
         console.error('Error creating user:', error);
         throw error;
     }
-};  
+};
 
-const login = async (userData) => {
+const login = asyncHandler(async (userData) => {
     try {
-        if(!userData.email || !userData.password) {
+        if (!userData.email || !userData.password) {
             return { error: 'Email and password are required' };
         }
 
         const user = await getUserByEmail(userData);
-        if(!user) {
+        if (!user) {
             return { error: 'User not found' };
         }
 
         const match = await bcrypt.compare(userData.password, user.password);
-        console.log("🚀 ~ login ~ match:", match)
-        
-        const { password, ...rest } = user;
-        if(match) {
-            return rest;
+        if (!match) {
+            throw new Error('Invalid password'); // Throw error instead of returning object
         }
 
-        return { error: 'Invalid password' };
+        const accessToken = jwt.sign(
+            { user: { id: user.id } },
+            process.env.ACCESS_TOKEN_SECRET,
+            { expiresIn: "700m" }
+        );
+
+        return { accessToken };
     } catch (error) {
         console.error('Error getting user:', error);
         throw error;
     }
-};
+});
 
-module.exports = {register , login};
+module.exports = { register, login };
