@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const {createOperationalHours,getTodaysOperationalHoursToday} = require('../service/operationalHours');
+const {createOperationalHours,getTodaysOperationalHoursToday} = require('../controller/operationalHours');
 
 router.post('/create', async (req, response) => {
     const opertionalHoursData = req.body; 

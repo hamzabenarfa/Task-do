@@ -1,7 +1,7 @@
 const router = require('express').Router();
-const createSchedule = require('../service/schedule');
-const {getTodaysOperationalHoursToday} = require('../service/operationalHours');
-const {getAllTasks} = require('../service/task');
+const createSchedule = require('../controller/schedule');
+const {getTodaysOperationalHoursToday} = require('../controller/operationalHours');
+const {getAllTasks} = require('../controller/task');
 
 
 router.get('/get', async (req, response) => {

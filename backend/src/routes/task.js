@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const {createTask,getTasks,getAppointments} = require('../service/task');
+const {createTask,getTasks,getAppointments} = require('../controller/task');
 
 router.post('/create', async (req, response) => {
     const taskData = req.body; 

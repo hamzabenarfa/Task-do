@@ -1,8 +1,8 @@
 
 const OperationalHours = require('../models/OperationalHours');
-const { dataSegregator, sortedData } = require('../controller/dataProcessor');
+const { dataSegregator, sortedData } = require('../service/dataProcessor');
 const Scheduler = require('../models/scheduler');
-const fillTimeSlots = require('../controller/fillTimeSlots');
+const fillTimeSlots = require('../service/fillTimeSlots');
 
 createSchedule = async (today, myTasksData) => {
     try {
