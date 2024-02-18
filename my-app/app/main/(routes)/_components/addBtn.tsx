@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 
-import { PlusCircle } from "lucide-react";
 import {
     Dialog,
     DialogContent,
@@ -51,11 +50,11 @@ const AddBtn = () => {
     const [context, setContext] = useState("");
     const [priority, setPriority] = useState(0);
     const [start_at, setStart_at] = useState("");
-    
+
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
     const [enabled, setEnabled] = useState(false);
-  
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -66,14 +65,12 @@ const AddBtn = () => {
             start_at: "",
         },
     });
-    //localhost:4000/task/create
-
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        try{
+        try {
             setLoading(true)
-            const res = await axios.post("http://localhost:4000/task/create",{
+            const res = await axios.post("http://localhost:4000/task/create", {
                 task,
                 duration,
                 context,
@@ -84,23 +81,37 @@ const AddBtn = () => {
             if (res) {
                 setLoading(false);
                 setOpen(false);
-              } else {
+            } else {
 
                 setLoading(false);
-              }
-        }catch(err){
+            }
+        } catch (err) {
             console.log(err)
         }
-    }    
+    }
 
 
     return (
         <>
             <Dialog open={open} onOpenChange={setOpen} >
                 <DialogTrigger asChild>
-                    
-                        <PlusCircle size={28} className="text-blue-500 ml-2" />
-                   
+
+                    <div className="w-10 h-10 bg-gray-100 rounded-3xl flex justify-center items-center cursor-pointer">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-6 w-6 text-gray-500"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                            />
+                        </svg>
+                    </div>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>
