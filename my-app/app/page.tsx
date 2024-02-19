@@ -6,14 +6,7 @@ const HomePage = () => {
   return (
     <div className=" overflow-hidden">
       <Navbar />
-      <Head>
-        <title>Your Task App</title>
-        <meta
-          name="description"
-          content="Effortless Task Management with Your Task App"
-        />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+   
 
       <main className="flex min-h-screen flex-col items-center justify-center gap-2 ">
         <div className=" md:max-w-2xl  ">
@@ -25,13 +18,13 @@ const HomePage = () => {
             intelligent task management web app.
           </p>
         </div>
-        <div className="mt-8 flex flex-col items-center justify-center">
+        {/* <div className="mt-8 flex flex-col items-center justify-center">
           <Link href="/main">
             <p className="rounded-3xl bg-blue-500 px-4 py-2 text-2xl font-bold text-white hover:bg-blue-600">
               Get Started
             </p>
           </Link>
-        </div>
+        </div> */}
       </main>
 
       <footer className="flex items-center justify-center">

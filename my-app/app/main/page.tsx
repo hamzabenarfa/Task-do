@@ -1,6 +1,6 @@
 import Menu from "./_component/menu";
 import MyList from "./_component/my-list";
-import Search from "./_component/search";
+import Search from "./_component/navbar";
 
 const Main = () => {
   return (
