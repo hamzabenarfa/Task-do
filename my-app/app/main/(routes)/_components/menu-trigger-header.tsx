@@ -21,7 +21,7 @@ const MenuTrigger = () => {
           </MenubarTrigger>
           <MenubarContent>
             <MenubarItem>
-              Change opertionalHours
+              Change  opertionalHours
             </MenubarItem>
            
           </MenubarContent>

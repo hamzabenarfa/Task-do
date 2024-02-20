@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/form";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
 
@@ -29,6 +29,7 @@ import { Spinner } from "@/components/spinner";
 import MyToggle from "./toggle";
 
 import axios from "axios";
+import taskService from "@/service/task.service";
 
 const formSchema = z.object({
     task: z.string(),
@@ -65,36 +66,27 @@ const AddBtn = () => {
             start_at: "",
         },
     });
-    const token = localStorage.getItem("accessToken");
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  
+    
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true); // Start loading
         try {
-            setLoading(true)
-            const res = await axios.post("http://localhost:4000/task/create", {
-                task,
-                duration,
-                context,
-                priority,
-                start_at
-
-            }
-            ,{
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                }
-            
-            });
-            if (res) {
-                setLoading(false);
-                setOpen(false);
-            } else {
-
-                setLoading(false);
-            }
-        } catch (err) {
-            console.log(err)
-        }
+        const result = await taskService.createTask(task, duration, context, priority, start_at, enabled);
+      if (result.data) {
+        console.log("Task created:", result.data);
+        setOpen(false); 
+    } else if (result.error) {
+        console.error("Error creating task:", result.error);
+      }
+    } catch (error) {
+      console.error("Unexpected error:", error);
+    } finally {
+      setLoading(false);  
     }
+  };
+
+ 
 
 
     return (

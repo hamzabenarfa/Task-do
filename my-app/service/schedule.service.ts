@@ -25,7 +25,8 @@ class ScheduleService {
   async fetchSchedule() {
     try {
       const response = await this.http.get("/get");
-      const scheduledItems = response.data.flatMap(item => item._scheduledItems || []).map(item => ({
+      const scheduledItems = response.data.flatMap(item =>  item._scheduledItems || []).map(item => (
+        {
         id: item._id,
         task: item._task,
         duration: item._duration,
@@ -33,7 +34,7 @@ class ScheduleService {
         endAt: this.formatTime(item.end_at),
         isAppointment: item._isAppointment,
       }));
-      console.log("🚀 ~ ScheduleService ~ fetchSchedule ~ scheduledItems:", scheduledItems)
+
       return { data: scheduledItems, error: null, isLoading: false };
     } catch (error) {
       console.error("Fetching schedule failed:", error);
