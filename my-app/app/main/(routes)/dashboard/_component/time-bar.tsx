@@ -64,6 +64,7 @@ const TimeBar = () => {
       <div className="p-4 space-y-4 flex-1">
         {schedule.map((item, index) => (
           <TaskCard
+            id={item.id}
             key={index}
             time={`${item.startAt} - ${item.endAt}`}
             title={item.task}

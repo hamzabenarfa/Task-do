@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import {  Square } from "lucide-react";
 import MenuTrigger from "./menu-trigger-header";
 import OperationalHours from "./opertionalHoursModal";
 
@@ -16,7 +15,7 @@ const Header = ({ title }: HeaderProps) => {
 
       </Button>
       <h1 className="font-bold text-base">{title}</h1>
-      <MenuTrigger />
+      {/* <MenuTrigger /> */}
     </header>
   );
 };
