@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const {createOperationalHours,getTodaysOperationalHoursToday} = require('../controller/operationalHours');
+const {createOperationalHours,getTodaysOperationalHoursToday,updateOperationalHours} = require('../controller/operationalHours');
 
 router.post('/create', async (req, response) => {
     const opertionalHoursData = req.body; 
@@ -23,6 +23,18 @@ router.get('/get', async (req, response) => {
     } catch (error) {
         console.error('Error in GET /get:', error);
         response.status(500).json({ error: 'Error getting opertionalHours' });
+    }
+});
+
+router.put('/update/:id', async (req, response) => {
+   const id = req.params.id;
+   const opertionalHoursData = req.body;
+   try {
+        const updatedOpertionalHours = await updateOperationalHours(id,opertionalHoursData);
+        response.json(updatedOpertionalHours);
+    } catch (error) {
+        console.error('Error in PUT /update:', error);
+        response.status(500).json({ error: 'Error updating opertionalHours' });
     }
 });
 

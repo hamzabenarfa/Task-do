@@ -45,8 +45,8 @@ const login = asyncHandler(async (userData) => {
             process.env.ACCESS_TOKEN_SECRET,
             { expiresIn: "700m" }
         );
-
-        return { accessToken };
+        userInfo = { ...user, password: undefined };
+        return { userInfo, accessToken };
     } catch (error) {
         console.error('Error getting user:', error);
         throw error;

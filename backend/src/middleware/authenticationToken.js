@@ -1,24 +1,30 @@
-const asyncHandler = require("express-async-handler");
-const jwt = require("jsonwebtoken");
+const asyncHandler = require('express-async-handler');
+const jwt = require('jsonwebtoken');
 
 const authenticateToken = asyncHandler(async (req, res, next) => {
-    const authHeader = req.headers.authorization || req.headers.Authorization;
-    if (authHeader && authHeader.startsWith("Bearer ")) {
-        const token = authHeader.split(" ")[1];
-        if (token) {
-            jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
-                if (err) {
-                    return res.status(401).json({ message: "User is not authenticated" });
-                }
-                req.user = decoded.user;
-                return next();
-            });
-        } else {
-            return res.status(401).json({ message: "User is not authenticated or token is missing" });
-        }
-    } else {
-        return res.status(401).json({ message: "Authorization header is missing" });
+  const { authorization = '' } = req.headers;
+  const authHeader = authorization.split(' ');
+  
+  if (authHeader[0] === 'Bearer' && authHeader[1]) {
+    try {
+      const { ACCESS_TOKEN_SECRET } = process.env;
+      const decoded = await jwt.verify(authHeader[1], ACCESS_TOKEN_SECRET);
+      req.user = decoded.user;
+      next();
+    } catch (error) {
+      if (error.name === 'TokenExpiredError') {
+        return res.status(401).json({ message: 'Token has expired' });
+      } else if (error.name === 'JsonWebTokenError') {
+        return res.status(401).json({ message: 'Token is invalid' });
+      } else {
+        return res.status(401).json({ message: 'User is not authenticated' });
+      }
     }
+  } else if (!authHeader[0] || authHeader[0] !== 'Bearer') {
+    return res.status(401).json({ message: 'Authorization header must start with Bearer' });
+  } else {
+    return res.status(401).json({ message: 'Token is missing' });
+  }
 });
 
 module.exports = authenticateToken;

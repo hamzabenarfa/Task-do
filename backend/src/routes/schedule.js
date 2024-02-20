@@ -11,7 +11,8 @@ router.get('/get', async (req, response) => {
             response.status(404).json({ error: 'No operational hours today' });
             return;
         }
-        const myTasksData = await getAllTasks();
+        const userId = req.user.id;
+        const myTasksData = await getAllTasks(userId);
         if(!myTasksData) {
             response.status(404).json({ error: 'No tasks today' });
             return;

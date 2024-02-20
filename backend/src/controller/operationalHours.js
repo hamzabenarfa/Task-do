@@ -34,5 +34,23 @@ getTodaysOperationalHoursToday = async () => {
     }
 }
 
+updateOperationalHours = async (id,operationalHoursData) => {
+    try {
+        const updatedOperationalHours = await prisma.operationalHours.update({
+            where: {
+                id: parseInt(id),
+            },
+            data: {
+                startingTime: operationalHoursData.startingTime,
+                endingTime: operationalHoursData.endingTime,
+            }
+        });
+        return updatedOperationalHours;
+    } catch (error) {
+        console.error('Error updating OperationalHours:', error);
+        throw error;
+    }
+};
 
-module.exports = {createOperationalHours,getTodaysOperationalHoursToday};
+
+module.exports = {createOperationalHours,getTodaysOperationalHoursToday,updateOperationalHours};
