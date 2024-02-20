@@ -79,6 +79,7 @@ const TimeBar = () => {
           item.isGap ? (
             // Render a blank task card for a gap
             <TaskCard
+              id={null}
               key={`gap-${index}`}
               timeDisplay={`${item.startAt} - ${item.endAt}`}
               time={[item.startAt ,item.endAt]}

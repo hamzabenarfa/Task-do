@@ -11,8 +11,8 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
-
-    const handleSubmit = async (event) => {
+   
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         if(!email || !password) return setErrorMessage("Please fill in all fields");
 
@@ -37,7 +37,7 @@ const Login = () => {
                 throw new Error(data.message || "An error occurred");
             }
         } catch (error) {
-            setErrorMessage(error.message);
+            setErrorMessage(error as string);
         }
     };
 
@@ -81,7 +81,7 @@ const Login = () => {
                 <div className="flex flex-col items-center justify-center gap-4">
                     <p className="text-center font-light text-xs text-gray-500">Or</p>
                     <p className="font-light text-xs text-gray-500">
-                        Don't have an account? <Link href="/register" className="text-orange-500 underline">Register</Link>
+                        Don&apos;t have an account? <Link href="/register" className="text-orange-500 underline">Register</Link>
                     </p>
                 </div>
             </div>

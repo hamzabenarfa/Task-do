@@ -103,7 +103,7 @@ const OperationalHours = () => {
         };
         fetchOperationalHours();
     }
-        , []);
+        , [token]);
 
 
     return (

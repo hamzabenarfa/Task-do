@@ -13,7 +13,7 @@ const Register = () => {
     const [errorMessage, setErrorMessage] = useState("");
 
     // Handle the form submission
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault(); 
 
   
@@ -47,7 +47,7 @@ const Register = () => {
                 throw new Error(data.message || "An error occurred during registration");
             }
         } catch (error) {
-            setErrorMessage(error.message);
+            setErrorMessage(error as string);
         }
     };
 

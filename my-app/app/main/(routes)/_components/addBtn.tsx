@@ -67,7 +67,7 @@ const AddBtn = () => {
     });
   
     
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoading(true); // Start loading
         try {
