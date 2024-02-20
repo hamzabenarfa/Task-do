@@ -34,6 +34,36 @@ getAllTasks = async (userId) => {
     }
 }
 
+deleteTask = async (taskId) => {
+    try {
+        const task = await prisma.task.delete({
+            where: {
+                id: taskId,
 
+            },
+        });
+        return task;
+    } catch (error) {
+        console.error('Error deleting task:', error);
+        throw error;
+    }
+}
 
-module.exports = { createTask, getAllTasks  };
+updateTask = async (taskId, taskData) => {
+    try {
+        const task = await prisma.task.update({
+            where: {
+                id: taskId,
+            },
+            data: {
+                ...taskData,
+            },
+        });
+        return task;
+    } catch (error) {
+        console.error('Error updating task:', error);
+        throw error;
+    }
+}
+
+module.exports = { createTask, getAllTasks ,deleteTask, updateTask };

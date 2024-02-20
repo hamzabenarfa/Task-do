@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const {createTask ,getAllTasks} = require('../controller/task');
+const {createTask ,getAllTasks,deleteTask,updateTask} = require('../controller/task');
 
 router.post('/create', async (req, response) => {
     const taskData = req.body; 
@@ -22,6 +22,29 @@ router.get('/get', async (req, response) => {
     } catch (error) {
         console.error('Error in GET /get:', error);
         response.status(500).json({ error: 'Error getting tasks' });
+    }
+});
+
+router.delete('/delete/:id', async (req, response) => {
+    try {
+        const taskId = parseInt(req.params.id);
+        const task = await deleteTask(taskId);
+        response.json(task);
+    } catch (error) {
+        console.error('Error in DELETE /delete:', error);
+        response.status(500).json({ error: 'Error deleting task' });
+    }
+});
+
+router.put('/update/:id', async (req, response) => {
+    try {
+        const taskId = parseInt(req.params.id);
+        const taskData = req.body;
+        const task = await updateTask(taskId, taskData);
+        response.json(task);
+    } catch (error) {
+        console.error('Error in UPDATE /update:', error);
+        response.status(500).json({ error: 'Error updating task' });
     }
 });
 
