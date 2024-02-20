@@ -28,9 +28,7 @@ const MenuTrigger = ({id}) => {
             </Button>
           </MenubarTrigger>
           <MenubarContent >
-            {/* <MenubarItem className=" cursor-pointer">
-            <Modify id={id} />
-            </MenubarItem> */}
+     
             <MenubarItem onClick={handleDelete} className=" cursor-pointer">
              <p> Delete </p><Trash2 className="w-4 h-4 ml-auto" />
             </MenubarItem>
