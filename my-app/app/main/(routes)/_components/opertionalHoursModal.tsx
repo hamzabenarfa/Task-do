@@ -1,7 +1,7 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-import { Clock2, PlusCircle } from "lucide-react";
+import { Clock2 } from "lucide-react";
 import {
     Dialog,
     DialogContent,
@@ -33,15 +33,13 @@ import axios from "axios";
 const formSchema = z.object({
     startingTime: z.string(),
     endingTime: z.string()
-
-
 });
 
 const OperationalHours = () => {
 
     const [startingTime, setStartingTime] = useState("");
     const [endingTime, setEndingTime] = useState("");
-
+    const [operationalHours, setOperationalHours] = useState(null)
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
 
@@ -50,21 +48,31 @@ const OperationalHours = () => {
         defaultValues: {
             startingTime: "",
             endingTime: "",
-
         },
     });
-    //localhost:4000/operationalhours/create
+    const token = localStorage.getItem("accessToken");
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
+            const url = operationalHours
+                ? `http://localhost:4000/operationalhours/update/${operationalHours.id}`
+                : "http://localhost:4000/operationalhours/create";
+            const method = operationalHours ? "put" : "post";
+
             setLoading(true)
-            const res = await axios.post("http://localhost:4000/operationalhours/create", {
-                startingTime,
-                endingTime
+            const res = await axios[method](
+                url,
+                {
+                    startingTime,
+                    endingTime
 
-
-            });
+                },
+                {
+                    headers: {
+                        Authorization: 'Bearer ' + token,
+                    },
+                });
             if (res) {
                 setLoading(false);
                 setOpen(false);
@@ -76,29 +84,44 @@ const OperationalHours = () => {
         }
     }
 
+    useEffect(() => {
+        const fetchOperationalHours = async () => {
+            try {
+                const response = await axios.get("http://localhost:4000/operationalhours/get", {
+                    headers: {
+                        Authorization: 'Bearer ' + token,
+                    },
+                });
+                if (response) {
+                    setOperationalHours(response.data)
+                } else {
+                    console.log("no data")
+                }
+            } catch (error) {
+                console.error("Fetching data failed:", error);
+            }
+        };
+        fetchOperationalHours();
+    }
+        , []);
+
 
     return (
         <>
             <Dialog open={open} onOpenChange={setOpen} >
                 <DialogTrigger asChild>
-                    {/*  */}
-                    <div className="w-10 h-10 bg-gray-100 rounded-3xl flex justify-center items-center cursor-pointer">
-                    <Clock2 size={20} className="text-gray-400" />
-                        {/* <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-6 w-6 text-gray-500"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                            />
-                        </svg> */}
-                    </div>
+                    {operationalHours ?
+                        (<div className="  h-10 bg-gray-100 rounded-3xl flex justify-center items-center cursor-pointer">
+                            <div className="flex flex-row items-center justify-center gap-1 px-4">
+                                <p>{operationalHours.startingTime}</p>-
+                                <p>{operationalHours.endingTime}</p>
+                            </div>
+                        </div>) :
+                        (<div className="w-10 h-10 bg-gray-100 rounded-3xl flex justify-center items-center cursor-pointer">
+                            <Clock2 size={20} className="text-gray-400" />
+                        </div>)
+
+                    }
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>

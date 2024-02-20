@@ -14,6 +14,7 @@ const Login = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        if(!email || !password) return setErrorMessage("Please fill in all fields");
 
         try {
             const response = await fetch('http://localhost:4000/auth/login', {

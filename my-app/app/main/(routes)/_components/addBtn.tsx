@@ -65,7 +65,7 @@ const AddBtn = () => {
             start_at: "",
         },
     });
-
+    const token = localStorage.getItem("accessToken");
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
@@ -77,6 +77,12 @@ const AddBtn = () => {
                 priority,
                 start_at
 
+            }
+            ,{
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            
             });
             if (res) {
                 setLoading(false);

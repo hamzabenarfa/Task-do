@@ -1,12 +1,14 @@
 'use client'
-import Navbar from "../../_component/navbar";
+import Navbar from "../_components/navbar";
 import CalendarNav from "./_component/calendar-nav ";
 import TimeBar from "./_component/time-bar";
 
 import useAuthCheck from '@/hooks/useAuthCheck';
 const Dashboard = () => {
-    const isAuthChecked = useAuthCheck(); 
 
+    
+
+    const isAuthChecked = useAuthCheck(); 
     if (!isAuthChecked) {
         return <div></div>; 
     }
