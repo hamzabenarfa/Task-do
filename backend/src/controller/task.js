@@ -1,4 +1,5 @@
 const { PrismaClient } = require('@prisma/client');
+const { parse } = require('date-fns');
 
 const prisma = new PrismaClient();
 
@@ -38,7 +39,7 @@ deleteTask = async (taskId) => {
     try {
         const task = await prisma.task.delete({
             where: {
-                id: taskId,
+                id: parseInt(taskId),
 
             },
         });

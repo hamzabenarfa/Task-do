@@ -27,7 +27,7 @@ router.get('/get', async (req, response) => {
 
 router.delete('/delete/:id', async (req, response) => {
     try {
-        const taskId = parseInt(req.params.id);
+        const taskId = req.params.id;
         const task = await deleteTask(taskId);
         response.json(task);
     } catch (error) {
