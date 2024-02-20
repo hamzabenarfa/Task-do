@@ -6,6 +6,9 @@ class Appointment {
         this._task = appointment.task;
         this._startAt = appointment.start_at;
         this._duration = appointment.duration;
+        this._isAppointment = appointment.isAppointment;
+        this.start_at=this.startAtAsDate;
+        this.end_at=this.endAtAsDate;
     }
 
     get startAt() {

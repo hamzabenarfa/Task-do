@@ -16,7 +16,7 @@ createSchedule = async (today, myTasksData) => {
 
         const scheduler = new Scheduler(sortedApointments, myDay);
         scheduler.getTimeSlots();
-
+        
         const result = fillTimeSlots(scheduler.schedule, sortedTasks);
         return result;
     }

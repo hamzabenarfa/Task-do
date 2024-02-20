@@ -37,6 +37,7 @@ model Task {
   end_at   String @default("")
   userId   Int?
   User     User?  @relation(fields: [userId], references: [id])
+  isAppointment Boolean @default(false)
 }
 
 //get by today's date

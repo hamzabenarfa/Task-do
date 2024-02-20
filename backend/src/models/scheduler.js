@@ -8,6 +8,7 @@ class Scheduler {
         this._operationalHours = operationalHours;
         this._sortedApointments = sortedApointments;
         this._currentTime = operationalHours.startingTime;
+        
     }
     
     get schedule() {
@@ -17,7 +18,7 @@ class Scheduler {
     getTimeSlots() {
         this._sortedApointments.map((appointment, index) => {
           const appointmentStart = appointment.startAtAsDate;
-      
+
           if (this.slotBefore(appointmentStart)) {
             this.createTimeSlot(appointmentStart)
             this.moveToNextTimeSlot(appointmentStart);

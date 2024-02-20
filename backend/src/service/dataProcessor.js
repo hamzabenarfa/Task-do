@@ -14,7 +14,10 @@ function byPriorityAndDuration(current, next) {
 
 function dataSegregator(data) {
   const { appointments, tasks } = data.reduce((acc, item) => {
-    if (item.start_at !== undefined && item.priority == undefined) {
+    /**
+     * this old if :     if (item.start_at !== undefined && item.priority == undefined) {
+     */
+    if (item.isAppointment) {
       let appointment = new Appointment(item)
       acc.appointments.push(appointment);
     } else {
