@@ -1,14 +1,16 @@
 const { PrismaClient } = require('@prisma/client');
-const { parse } = require('date-fns');
-
 const prisma = new PrismaClient();
+const {getTodaysOperationalHoursToday}  = require('./operationalHours');
 
 createTask = async (userId, taskData) => { 
+    const opertionalHours = await getTodaysOperationalHoursToday();
+
     try {
         const newTask = await prisma.task.create({
             data: {
                 ...taskData,
                 userId: userId,
+                operationalHoursId: opertionalHours.id,
             },
         });
         return newTask;
