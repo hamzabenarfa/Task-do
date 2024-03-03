@@ -1,0 +1,44 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  tasks     Task[]
+}
+
+model OperationalHours {
+  id           Int    @id @default(autoincrement())
+  startingTime String
+  endingTime   String
+  createdAt    String @unique @default("CURRENT_Date")
+
+  task Task[]
+}
+
+model Task {
+  id            Int     @id @default(autoincrement())
+  task          String
+  priority      Int?
+  duration      Int
+  context       String
+  start_at      String  @default("")
+  end_at        String  @default("")
+  isAppointment Boolean @default(false)
+
+  operationalHours   OperationalHours? @relation(fields: [operationalHoursId], references: [id])
+  operationalHoursId Int?
+
+  userId Int?
+  User   User? @relation(fields: [userId], references: [id])
+}

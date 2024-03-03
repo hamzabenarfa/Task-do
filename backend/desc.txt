@@ -1,0 +1,12 @@
+//get by today's date
+//sort tasks
+//post restults of the sorted schedule
+model Schedule {
+  id       Int    @id @default(autoincrement())
+  task     String
+  priority Int
+  duration Int
+  context  String
+  start_at String
+  end_at   String
+}
