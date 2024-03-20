@@ -12,6 +12,7 @@ model User {
   email     String   @unique
   password  String
   name      String
+  profileImage String? 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   tasks     Task[]

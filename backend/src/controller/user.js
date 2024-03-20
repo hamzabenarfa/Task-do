@@ -28,4 +28,24 @@ const getUserByEmail = async (userData) => {
     }
 };
 
-module.exports = {createUser , getUserByEmail};
+const addImageProfile = async (req, res) => {
+    const userId = req.user.id;
+    const filename = req.file.filename;
+    try {
+        const newResource = await prisma.user.update({
+            where: {
+                id: userId
+            },
+            data: {
+                profileImage:filename
+            }
+
+        });
+        res.status(201).json(newResource);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: 'Error creating resource' });
+    }
+}
+
+module.exports = {createUser , getUserByEmail,addImageProfile};

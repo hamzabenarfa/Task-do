@@ -1,6 +1,7 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 const {getTodaysOperationalHoursToday}  = require('./operationalHours');
+const { get } = require('../routes/task');
 
 createTask = async (userId, taskData) => { 
     const opertionalHours = await getTodaysOperationalHoursToday();
@@ -37,6 +38,21 @@ getAllTasks = async (userId) => {
     }
 }
 
+getTask = async (taskId) => {
+    try {
+        
+        const task = await prisma.task.findUnique({
+            where: {
+                id: parseInt(taskId),
+            },
+        });
+        return task;
+    } catch (error) {
+        console.error('Error getting task:', error);
+        throw error;
+    }
+}
+
 deleteTask = async (taskId) => {
     try {
         const task = await prisma.task.delete({
@@ -69,4 +85,4 @@ updateTask = async (taskId, taskData) => {
     }
 }
 
-module.exports = { createTask, getAllTasks ,deleteTask, updateTask };
+module.exports = { createTask, getAllTasks ,deleteTask, updateTask ,getTask};
