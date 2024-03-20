@@ -8,7 +8,7 @@ const Profile = () => {
 
     return ( 
         <div className="flex items-center justify-center p-10">
-            <ImageProfile size="default" />
+            <ImageProfile size="default" profile={true} />
 
             <div className="ml-5">
                 <h2 className="text-3xl font-bold">{userData?.name}</h2>

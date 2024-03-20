@@ -9,7 +9,7 @@ import { cva } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
 
-const ImageProfile = ({className, size}) => {
+const ImageProfile = ({ className, size, profile = false }) => {
     const userData = useUserData();
     const [profileImageUrl, setProfileImageUrl] = useState(null);
 
@@ -56,7 +56,6 @@ const ImageProfile = ({className, size}) => {
             fileInput.onchange = async (event) => {
                 const file = event.target.files[0];
                 const response = await userService.uploadImageProfile(file);
-                console.log("🚀 ~ fileInput.onchange= ~ response:", response)
                 if (response) {
                     const imageUrl = URL.createObjectURL(file);
                     setProfileImageUrl(imageUrl);
@@ -69,15 +68,20 @@ const ImageProfile = ({className, size}) => {
     };
     return (
         <div className="relative">
-        {profileImageUrl ? (
-            <img src={profileImageUrl} alt="Profile" className={cn(imageVariants({ size, className }))} />
-        ) : (
-            <div className="bg-gray-200 w-20 h-20 rounded-full"></div>
-        )}
-        <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
-            <Upload size={28} className="text-white cursor-pointer" onClick={handleUploadClick} />
+            {profileImageUrl  && (
+                <img src={profileImageUrl} alt="Profile" className={cn(imageVariants({ size, className }))} />
+
+            ) }
+            {profile && !profileImageUrl && (
+                <div className="bg-gray-200 w-20 h-20 rounded-full" >
+                </div>
+            )}
+            {profile && (
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
+                    <Upload size={28} className="text-white cursor-pointer" onClick={handleUploadClick} />
+                </div>
+            )}
         </div>
-    </div>
     );
 }
 

@@ -27,7 +27,7 @@ const ProfileMenuTrigger = () => {
     <Menubar>
       <MenubarMenu>
         <MenubarTrigger >
-          <div className="w-10 h-10 bg-gray-100 rounded-xl flex justify-center items-center cursor-pointer">
+          <div className="w-10 h-10 rounded-xl flex justify-center items-center cursor-pointer">
             <ImageProfile size="sm" />
           </div>
         </MenubarTrigger>
