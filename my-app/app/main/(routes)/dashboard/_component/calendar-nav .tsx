@@ -4,7 +4,7 @@ const CalendarNav = () => {
     const dates = ['14', '15', '16', '17', '18', '19', '20']; // Sample dates
 
     return (
-        <div className="bg-white p-4 ">
+        <div className="p-4 ">
             <div className="flex items-center justify-between text-xs">
                 {weekDays.map((day, index) => (
                     <div key={day} className={`text-center cursor-pointer ${selectedDate === dates[index] ? 'text-red-500 font-semibold' : 'text-gray-600'}`}>

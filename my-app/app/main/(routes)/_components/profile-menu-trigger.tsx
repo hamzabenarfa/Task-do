@@ -5,6 +5,7 @@ import {
   MenubarMenu,
   MenubarTrigger,
 } from "@/components/ui/menubar";
+import authService from "@/service/auth.service";
 import { LogOut, User, User2 } from "lucide-react";
 
 import { useRouter } from "next/navigation";
@@ -14,8 +15,7 @@ const ProfileMenuTrigger = () => {
   const router = useRouter();
 
   function handleLogout() {
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
+    authService.logout();
     router.push("/login");
   }
   function handleProfile() {

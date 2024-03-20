@@ -1,10 +1,8 @@
 "use client"
 
-
 import { useEffect, useState } from "react";
 import { TaskCard } from "./task-card";
 import scheduleService from "@/service/schedule.service";
-import operationalHours from "@/service/operational-hours.service";
 
 const TimeBar = () => {
   const [schedule, setSchedule] = useState([]);
@@ -50,23 +48,23 @@ const TimeBar = () => {
   }, []);
 
   const heightPerHour = 600; // Adjust as needed
-  const calculateHeight = (startTime, endTime) => {
-    const [startHour, startMinute] = startTime.split(':').map(Number);
-    const [endHour, endMinute] = endTime.split(':').map(Number);
+  // const calculateHeight = (startTime, endTime) => {
+  //   const [startHour, startMinute] = startTime.split(':').map(Number);
+  //   const [endHour, endMinute] = endTime.split(':').map(Number);
   
-    // Calculate the start and end times in minutes
-    const startTimeInMinutes = startHour * 60 + startMinute;
-    const endTimeInMinutes = endHour * 60 + endMinute;
+  //   // Calculate the start and end times in minutes
+  //   const startTimeInMinutes = startHour * 60 + startMinute;
+  //   const endTimeInMinutes = endHour * 60 + endMinute;
   
-    // Calculate the duration in minutes
-    const durationInMinutes = endTimeInMinutes - startTimeInMinutes;
+  //   // Calculate the duration in minutes
+  //   const durationInMinutes = endTimeInMinutes - startTimeInMinutes;
   
-    // Calculate the height per minute
-    const heightPerMinute = heightPerHour / 60;
+  //   // Calculate the height per minute
+  //   const heightPerMinute = heightPerHour / 60;
   
-    // Return the height for the duration
-    return `${durationInMinutes * heightPerMinute}px`;
-  };
+  //   // Return the height for the duration
+  //   return `${durationInMinutes * heightPerMinute}px`;
+  // };
   
 
   if (isLoading) return <div>Loading...</div>;
@@ -82,11 +80,11 @@ const TimeBar = () => {
               id={null}
               key={`gap-${index}`}
               timeDisplay={`${item.startAt} - ${item.endAt}`}
-              time={[item.startAt ,item.endAt]}
+              time={[item.startAt, item.endAt]}
 
               title="Add task"
-              appointment={false}
-              style={{ height: calculateHeight(item.startAt, item.endAt) }}
+              appointment={false} style={undefined} duration={undefined}           
+            // style={{ height: calculateHeight(item.startAt, item.endAt) }}
               />
           ) : (
             // Render the actual task card
@@ -95,10 +93,11 @@ const TimeBar = () => {
               key={item.id}
               timeDisplay={`${item.startAt} - ${item.endAt}`}
               time={[item.startAt ,item.endAt]}
-
+              duration={item.duration}
               title={item.task}
+              context={item.context}
               appointment={item.isAppointment}
-              style={{ height: calculateHeight(item.startAt, item.endAt) }}
+              // style={{ height: calculateHeight(item.startAt, item.endAt) }}
               />
           )
         ))}

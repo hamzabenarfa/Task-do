@@ -1,9 +1,11 @@
 const data = require('./data/data.js');
-const { sortedData, dataSegregator } = require('./controller/dataProcessor.js');
+
+const organizeByContext = require('./service/organizeByContext.js');
+const { sortedData, dataSegregator } = require('./service/dataProcessor.js');
+const fillTimeSlots = require('./service/fillTimeSlots.js');
+
 const Scheduler = require('./models/scheduler.js');
-const fillTimeSlots = require('./controller/fillTimeSlots.js');
 const OperationalHours = require('./models/OperationalHours.js');
-const organizeByContext = require('./controller/organizeByContext.js');
 
 //Get operational hours
 const MyDay = new OperationalHours({
@@ -17,9 +19,8 @@ const [sortedApointments, sortedTasks]  = sortedData(appointments, tasks);
 
 const scheduler = new Scheduler(sortedApointments, MyDay);
 scheduler.getTimeSlots();
- console.log("🚀 ~ scheduler:", scheduler.schedule)
 
-//const res = fillTimeSlots(scheduler.schedule, sortedTasks);
+const res = fillTimeSlots(scheduler.schedule, sortedTasks);
 
 
 
@@ -28,9 +29,9 @@ scheduler.getTimeSlots();
  * =>>> it need to push the tasks to overflow array after finding an appointment
  * 
  */
-const result= organizeByContext(scheduler.schedule, sortedTasks, "job", "8:00", "10:00")
-console.log("🚀 ~ result:", result)
+// const result= organizeByContext(scheduler.schedule, sortedTasks, "job", "8:00", "10:00")
+// console.log("🚀 ~ result:", result)
 
-result.map((res) => {
-    console.log(res.scheduledTasks)
-})
+// result.map((res) => {
+//     console.log(res.scheduledTasks)
+// })

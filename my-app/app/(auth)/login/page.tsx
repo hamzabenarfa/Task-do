@@ -1,9 +1,12 @@
 "use client"
 import Link from "next/link";
 import Image from "next/image";
-import {  useState } from "react";
-
+import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Logo } from "@/components/Logo";
+
+import authService from "@/service/auth.service";
+import { Loader2 } from "lucide-react";
 
 const Login = () => {
     const router = useRouter();
@@ -11,47 +14,40 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
-   
+    const [isLoading, setIsLoading] = useState(false);
+
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        if(!email || !password) return setErrorMessage("Please fill in all fields");
-
+        
         try {
-            const response = await fetch('http://localhost:4000/auth/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, password }),
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                // Save the accessToken in localStorage or context
-                localStorage.setItem('accessToken', data.accessToken);
-                localStorage.setItem('user', JSON.stringify(data.userInfo));
+            setIsLoading(true);
+            const res = await authService.login(email, password);
+            if ( res.status === 200) {
                 router.push("/main/dashboard");
-
             } else {
-                throw new Error(data.message || "An error occurred");
+                setErrorMessage( res.error ? res.error : "An unknown error occurred."); // Extract error message from the response object
             }
         } catch (error) {
-            setErrorMessage(error as string);
+            console.log(error);
+            setErrorMessage("An error occurred."); // Set a generic error message
+        } finally {
+            setIsLoading(false);
         }
-    };
+    }
+
 
     return (
-        <div className="min-h-screen flex items-center justify-around">
+        <div className="min-h-screen flex items-center justify-around ">
             <div className="hidden lg:block">
                 <Image
-                    src="/register.png"
+                    src="/login.png"
                     alt="Login"
                     width={500}
                     height={600}
                 />
             </div>
-            <div className="h-full flex flex-col space-y-8 p-4 py-4 bg-white m-2 shadow-md rounded-xl md:max-w-xs">
+            <div className="h-full flex flex-col space-y-8 p-10 py-4 bg-white m-2 shadow-md rounded-xl md:max-w-xs">
+                <Logo />
                 <div className="space-y-1">
                     <h1>Login</h1>
                     <p className="font-light text-xs text-gray-500">
@@ -73,8 +69,8 @@ const Login = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
-                    <button type="submit" className="p-2 bg-orange-300 text-white rounded-md hover:bg-orange-500">
-                        Login
+                    <button type="submit" disabled={isLoading} className="p-2 bg-orange-300 text-white rounded-md hover:bg-orange-500">
+                        {isLoading ? <Loader2 className="animate-spin mx-auto" /> : "Login"}
                     </button>
                     {errorMessage && <p className="text-red-500 text-xs mt-2">{errorMessage}</p>}
                 </form>

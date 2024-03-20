@@ -1,7 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-
+import {cn} from "@/lib/utils"
 const inter = Poppins({
   weight: ["400", "600"],
   subsets: ["latin"],
@@ -19,7 +19,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en ">
-      <body className={inter.className} suppressHydrationWarning>
+      <body className={cn(inter.className)} suppressHydrationWarning>
+        
         {children}
       </body>
     </html>

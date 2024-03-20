@@ -1,4 +1,5 @@
 module.exports = [
+  
   { id: 3, task: "Meeting scrum at 9am", start_at: "9:00", duration: 20, context: "job",priority: undefined  },
   
   { id: 1, task: "Meeting at 11pm", start_at: "11:00", duration: 30, context: "job" },
@@ -32,14 +33,14 @@ module.exports = [
 
   // { id: 28, task: "Painting", duration: 120, context: "home" },
   // { id: 29, task: "Meditation", duration: 15, context: "home" },
-  { id: 11, task: "Review Documents", priority: 2, duration: 60, context: "job" },
-  { id: 12, task: "Reply to Messages", priority: 2, duration: 20, context: "job" },
-  { id: 14, task: "Quick Call", priority: 3, duration: 10, context: "job" },
-  { id: 15, task: "Short Break", priority: 2, duration: 25, context: "job" },
-  { id: 16, task: "Update Task List", priority: 2, duration: 10, context: "job" },
-  { id: 17, task: "Check Notifications", priority: 2, duration: 5, context: "job" },
-  { id: 18, task: "Review Agenda", priority: 3, duration: 15, context: "job" },
-  { id: 19, task: "Coffee Break", priority: 3, duration: 20, context: "job" },
+  // { id: 11, task: "Review Documents", priority: 2, duration: 60, context: "job" },
+  // { id: 12, task: "Reply to Messages", priority: 2, duration: 20, context: "job" },
+  // { id: 14, task: "Quick Call", priority: 3, duration: 10, context: "job" },
+  // { id: 15, task: "Short Break", priority: 2, duration: 25, context: "job" },
+  // { id: 16, task: "Update Task List", priority: 2, duration: 10, context: "job" },
+  // { id: 17, task: "Check Notifications", priority: 2, duration: 5, context: "job" },
+  // { id: 18, task: "Review Agenda", priority: 3, duration: 15, context: "job" },
+  // { id: 19, task: "Coffee Break", priority: 3, duration: 20, context: "job" },
 ];
 
 

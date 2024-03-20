@@ -33,6 +33,7 @@ class ScheduleService {
         startAt: this.formatTime(item.start_at),
         endAt: this.formatTime(item.end_at),
         isAppointment: item._isAppointment,
+        context: item._context
       }));
 
       return { data: scheduledItems, error: null, isLoading: false };
