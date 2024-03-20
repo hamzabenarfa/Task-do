@@ -27,10 +27,10 @@ class UserService {
 
 
 
-    async getImageProfile(profileImage:string) {
+    async getImageProfile() {
         try {
-            const imageUrl = `/public/images/${profileImage}`;
-            const response = await this.http.get(imageUrl,{ responseType: 'blob' });
+            const profileImage = await this.http.get(`/user/get-profile-img`);
+            const response = await this.http.get(`/public/images/${profileImage.data}`, { responseType: 'blob' });
             const data = response.data;
             if (response.status === 200) {
                 return data;
@@ -39,13 +39,28 @@ class UserService {
             return error;
         }
     }
-    
+
+    async uploadImageProfile(file: File) {
+        try {
+            const formData = new FormData();
+            formData.append('file', file);
+            const response = await this.http.post('/user/upload-img-profile', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            return response.data;
+           
+        } catch (error) {
+            return error;
+        }
+    }
 
 
 
-  
 
- 
+
+
 
 }
 

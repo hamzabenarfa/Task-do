@@ -1,8 +1,10 @@
 const router = require('express').Router();
 const multer = require('multer');
 
-const {addImageProfile} = require('../controller/user');
+const {addImageProfile,getProfileImage} = require('../controller/user');
 const multerConfig = require('../config/multer');
+
+router.get('/get-profile-img', getProfileImage);
 
 router.post('/upload-img-profile', multer(multerConfig).single('file'),  (req, res) => {
     try {    

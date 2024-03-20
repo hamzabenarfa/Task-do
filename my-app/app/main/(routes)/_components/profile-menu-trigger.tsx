@@ -1,3 +1,4 @@
+import ImageProfile from "@/components/ImageProfile";
 import {
   Menubar,
   MenubarContent,
@@ -27,7 +28,7 @@ const ProfileMenuTrigger = () => {
       <MenubarMenu>
         <MenubarTrigger >
           <div className="w-10 h-10 bg-gray-100 rounded-xl flex justify-center items-center cursor-pointer">
-            <User2 />
+            <ImageProfile size="sm" />
           </div>
         </MenubarTrigger>
         <MenubarContent >

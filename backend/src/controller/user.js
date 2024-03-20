@@ -28,8 +28,41 @@ const getUserByEmail = async (userData) => {
     }
 };
 
-const addImageProfile = async (req, res) => {
+const getUserById = async (req, res) => {
     const userId = req.user.id;
+    try {
+        const user = await prisma.user.findUnique({
+            where: {
+                id: userId
+            }
+        });
+        res.status(200).json(user);
+    } catch (error) {
+        console.error('Error getting user:', error);
+        res.status(500).json({ error: 'Error getting user' });
+    }
+}
+
+const getProfileImage = async (req, res) => {
+    const userId = req.user.id;
+    try {
+        const user = await prisma.user.findUnique({
+            where: {
+                id: userId
+            }
+        });
+        res.status(200).json(user.profileImage);
+    } catch (error) {
+        console.error('Error getting user:', error);
+        res.status(500).json({ error: 'Error getting user' });
+    }
+}
+
+const addImageProfile = async (req, res) => {
+    const userId = req.user.id;  
+    if (!req.file) {
+       return res.status(400).json({ error: 'No file uploaded' });
+    }
     const filename = req.file.filename;
     try {
         const newResource = await prisma.user.update({
@@ -48,4 +81,4 @@ const addImageProfile = async (req, res) => {
     }
 }
 
-module.exports = {createUser , getUserByEmail,addImageProfile};
+module.exports = {createUser , getUserByEmail,addImageProfile,getProfileImage,getUserById};
