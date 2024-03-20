@@ -28,13 +28,28 @@ class TaskService {
           start_at,
           isAppointment
         });
-
-        console.log("Task created successfully:", response.data);
         return { data: response.data, error: null };
       } catch (error) {
-        console.error("Creating task failed:", error);
         return { data: null, error: error };
       }
+    }
+  }
+
+  async getAllTasks() {
+    try {
+      const response = await this.http.get("/");
+      return { data: response.data, error: null };
+    } catch (error) {
+      return { data: null, error: error };
+    }
+  }
+
+  async getTaskById(id) {
+    try {
+      const response = await this.http.get(`/get/${id}`);
+      return { data: response.data, error: null };
+    } catch (error) {
+      return { data: null, error: error };
     }
   }
 
@@ -42,10 +57,8 @@ class TaskService {
   async deleteTask(id) {
     try {
       const response = await this.http.delete(`/delete/${id}`);
-      console.log("Task deleted successfully:", response.data);
       return { data: response.data, error: null };
     } catch (error) {
-      console.error("Deleting task failed:", error);
       return { data: null, error: error };
     }
   }
@@ -53,10 +66,8 @@ class TaskService {
   async updateTask(id, updatedFields) {
     try {
       const response = await this.http.put(`/update/${id}`, updatedFields);
-      console.log("Task updated successfully:", response.data);
       return { data: response.data, error: null };
     } catch (error) {
-      console.error("Updating task failed:", error);
       return { data: null, error: error };
     }
   }

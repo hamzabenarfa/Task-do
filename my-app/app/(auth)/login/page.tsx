@@ -22,14 +22,13 @@ const Login = () => {
         try {
             setIsLoading(true);
             const res = await authService.login(email, password);
-            if ( res.status === 200) {
+            if (!res.error) {
                 router.push("/main/dashboard");
             } else {
-                setErrorMessage( res.error ? res.error : "An unknown error occurred."); // Extract error message from the response object
+                setErrorMessage( res.error ? res.error : "An unknown error occurred."); 
             }
         } catch (error) {
-            console.log(error);
-            setErrorMessage("An error occurred."); // Set a generic error message
+            console.error(error);
         } finally {
             setIsLoading(false);
         }

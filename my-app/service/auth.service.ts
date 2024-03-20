@@ -29,7 +29,7 @@ class AuthenticationService {
         try {
             const response = await axios.post(`${apiBaseUrl}/auth/login`, { email, password });
             const data = response.data;
-            if (response.status === 200) {
+            if (response.data) {
                 this.token = data.accessToken;
                 localStorage.setItem("accessToken", this.token);
                 localStorage.setItem('user', JSON.stringify(data.userInfo));
@@ -40,6 +40,8 @@ class AuthenticationService {
             return error
         }
     }
+
+
 
     async register(name: string, email: string, password: string) {
         try {
