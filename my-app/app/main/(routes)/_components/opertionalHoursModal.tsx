@@ -76,6 +76,7 @@ const OperationalHours = () => {
             if (res) {
                 setLoading(false);
                 setOpen(false);
+                window.location.reload();
             } else {
                 setLoading(false);
             }
