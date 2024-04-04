@@ -26,15 +26,18 @@ const Register = () => {
         }
         try {
             setIsLoading(true);
-            const res = await authService.register(username, email, password); // Use await here
-            if (res.status === 200) {
+            const res = await authService.register(username, email, password);
+            console.log("🚀 ~ handleSubmit ~ res:", res)
+            if (res.data) {
                 router.push("/login");
-            } else {
-                setErrorMessage(res.response.data.error);
+            } else {                setErrorMessage(res.response?.data?.error || "An unknown error occurred");
+
             }
          
         } catch (error) {
             console.log(error);
+            setErrorMessage(String(error) || "An error occurred while registering");
+
         } finally {
             setIsLoading(false); 
         }
@@ -43,14 +46,14 @@ const Register = () => {
     return (
         <div className="min-h-screen flex items-center justify-around">
             
-            <div className="hidden lg:block">
+            {/* <div className="hidden lg:block">
                 <Image
                     src="/login.png"
                     alt="Register"
                     width={500}
                     height={600}
                 />
-            </div>
+            </div> */}
             <div className="h-full flex flex-col space-y-8 p-10 py-4 bg-white m-2 shadow-md rounded-xl md:max-w-xs">
             <Logo />
                 <div className="space-y-1">

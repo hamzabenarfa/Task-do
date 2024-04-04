@@ -2,6 +2,8 @@
 import ImageProfile from "@/components/ImageProfile";
 import useUserData from "@/hooks/useUserData";
 import axios from 'axios';
+import Link from "next/link";
+import { ChevronLeft } from "lucide-react";
 import { useState } from 'react';
 const Profile = () => {
     const userData = useUserData();
@@ -10,22 +12,21 @@ const Profile = () => {
     const [newPassword, setNewPassword] = useState('');
 
     const resetPassword = async (e) => {
-        e.preventDefault(); 
+        e.preventDefault();
 
         try {
-            const res = await axios.post('http://localhost:4000/user/reset-password', {
+             await axios.post('http://localhost:4000/user/reset-password', {
                 currentPassword,
                 newPassword
             },
                 {
                     headers: {
-                            'Authorization': `Bearer ${token}`
+                        'Authorization': `Bearer ${token}`
                     }
                 }
             );
-            console.log("🚀 ~ resetPassword ~ res:", res)
             alert('Password successfully updated!');
-            // Reset form
+
             setCurrentPassword('');
             setNewPassword('');
         } catch (error) {
@@ -35,19 +36,23 @@ const Profile = () => {
     };
 
     return (
-        <div className="flex  min-h-screen bg-white flex-col items-center justify-start p-10">
+        <div className="flex min-h-screen bg-white flex-col items-center gap-10 justify-start p-10">
 
-            <div className="flex">
-                <ImageProfile size="default" profile={true} />
-
-                <div className="ml-5">
-                    <h2 className="text-3xl font-bold">{userData?.name}</h2>
-                    <p className="text-gray-500">{userData?.email}</p>
+            <div className="flex items-center justify-center gap-10  w-full">
+                <Link href="/main/dashboard">
+                    <ChevronLeft size={40} className="cursor-pointer hover:bg-slate-300/30 rounded-xl " />
+                </Link>
+                <div className="flex">
+                    <ImageProfile size="default" profile={true} />
+                    <div className="ml-5">
+                        <h2 className="text-3xl font-bold">{userData?.name}</h2>
+                        <p className="text-gray-500">{userData?.email}</p>
+                    </div>
                 </div>
             </div>
 
             <div>
-            <form onSubmit={resetPassword} className="mt-4">
+                <form onSubmit={resetPassword} className="mt-4">
                     <div className="mb-4">
                         <label htmlFor="currentPassword" className="block text-sm font-medium text-gray-700">Current Password</label>
                         <input

@@ -46,9 +46,9 @@ class AuthenticationService {
     async register(name: string, email: string, password: string) {
         try {
             const response = await this.http.post(`${apiBaseUrl}/auth/register`, { name, email, password }); // Use this.http instead of axios
-            const data = response.data;
+          
             if (response.status === 200) {
-                return data;
+                return response;
             }
         } catch (error) {
             console.log(error);
