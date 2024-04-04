@@ -9,11 +9,11 @@ const HomePage = () => {
       <Navbar />
    
 
-      <main className="flex  flex-col items-center justify-start mt-32  ">
+      <main className="flex flex-col items-center justify-start mt-32  ">
         <div className="flex flex-col md:max-w-2xl text-center gap-6 ">
           <div>
 
-          <h1 className=" text-5xl md:text-7xl bg-gradient-to-r from-indigo-200 via-red-200 to-yellow-100 bg-clip-text  font-bold text-transparent">
+          <h1 className="text-5xl md:text-7xl bg-gradient-to-r from-indigo-200 via-red-200 to-yellow-100 bg-clip-text  font-bold text-transparent">
             Effortless Task Management, Elevated.
           </h1>
 

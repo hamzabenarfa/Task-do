@@ -22,6 +22,8 @@ scheduler.getTimeSlots();
 
 const res = fillTimeSlots(scheduler.schedule, sortedTasks);
 
+console.log("🚀 ~ res:", res)
+
 
 
 /**

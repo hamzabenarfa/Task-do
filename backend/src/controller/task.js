@@ -69,6 +69,7 @@ deleteTask = async (taskId) => {
 }
 
 updateTask = async (taskId, taskData) => {
+    console.log("🚀 ~ updateTask= ~ taskData: input", taskData)
     try {
         const task = await prisma.task.update({
             where: {
@@ -78,6 +79,8 @@ updateTask = async (taskId, taskData) => {
                 ...taskData,
             },
         });
+        console.log("🚀 ~ updateTask= ~ task: output", task)
+        
         return task;
     } catch (error) {
         console.error('Error updating task:', error);
