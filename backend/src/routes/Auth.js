@@ -5,19 +5,17 @@ const {register , login} = require('../controller/auth');
 router.post('/register',async (req, response) => {
     const userData = req.body;
     try {
+        if(!userData.email || !userData.password || !userData.name ) {
+            return response.status(400).json({ error: 'Email , password and name are required' });        
+        }
         const existingUser = await getUserByEmail(userData);
         if(existingUser) {
-            response.status(400).json({ error: 'User already exists' });
-            return;
+            return response.status(400).json({ error: 'User already exists' });
         }
-        if(!userData.email || !userData.password || !userData.name ) {
-            response.status(400).json({ error: 'Email , password and name are required' });
-            return;
-        }
-        const  result = await register(userData);
+        
+        const result = await register(userData);
         response.json(result);
     } catch (error) {
-        console.error('Error in POST /create:', error);
         response.status(500).json({ error: 'Error creating user' });
     }
 });

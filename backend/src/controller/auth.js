@@ -26,7 +26,7 @@ const register = async (userData) => {
 
 const login = asyncHandler(async (userData) => {
     try {
-        if (!userData.email || !userData.password) {
+        if (!userData.email || !userData.password || userData.email === '' || userData.password === '') {
             return { error: 'Email and password are required' };
         }
 
@@ -37,7 +37,7 @@ const login = asyncHandler(async (userData) => {
 
         const match = await bcrypt.compare(userData.password, user.password);
         if (!match) {
-            throw new Error('Invalid password'); // Throw error instead of returning object
+            return { error: 'Invalid password' };
         }
 
         const accessToken = jwt.sign(

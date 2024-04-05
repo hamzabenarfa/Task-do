@@ -1,6 +1,7 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 const {getTodaysOperationalHoursToday}  = require('./operationalHours');
+const { get } = require('../routes/task');
 
 createTask = async (userId, taskData) => { 
     const opertionalHours = await getTodaysOperationalHoursToday();
@@ -37,6 +38,21 @@ getAllTasks = async (userId) => {
     }
 }
 
+getTask = async (taskId) => {
+    try {
+        
+        const task = await prisma.task.findUnique({
+            where: {
+                id: parseInt(taskId),
+            },
+        });
+        return task;
+    } catch (error) {
+        console.error('Error getting task:', error);
+        throw error;
+    }
+}
+
 deleteTask = async (taskId) => {
     try {
         const task = await prisma.task.delete({
@@ -53,6 +69,7 @@ deleteTask = async (taskId) => {
 }
 
 updateTask = async (taskId, taskData) => {
+    console.log("🚀 ~ updateTask= ~ taskData: input", taskData)
     try {
         const task = await prisma.task.update({
             where: {
@@ -62,6 +79,8 @@ updateTask = async (taskId, taskData) => {
                 ...taskData,
             },
         });
+        console.log("🚀 ~ updateTask= ~ task: output", task)
+        
         return task;
     } catch (error) {
         console.error('Error updating task:', error);
@@ -69,4 +88,4 @@ updateTask = async (taskId, taskData) => {
     }
 }
 
-module.exports = { createTask, getAllTasks ,deleteTask, updateTask };
+module.exports = { createTask, getAllTasks ,deleteTask, updateTask ,getTask};

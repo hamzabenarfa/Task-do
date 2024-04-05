@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Input } from "@/components/ui/input";
 import {
@@ -43,13 +43,14 @@ const formSchema = z.object({
 
 });
 
-const Modify = ({ id, title, appointment }) => {
+const Modify = ({ id, title, appointment,data }) => {
 
-    const [task, setTask] = useState("");
-    const [duration, setDuration] = useState(0);
-    const [context, setContext] = useState("");
-    const [priority, setPriority] = useState(0);
+    const [task, setTask] = useState(title);
+    const [duration, setDuration] = useState(data.duration);
+    const [context, setContext] = useState(data.context);
+    const [priority, setPriority] = useState(data.priority);
     const [start_at, setStart_at] = useState("");
+
 
     const [loading, setLoading] = useState(false);
     const [enabled, setEnabled] = useState(appointment);
@@ -64,19 +65,15 @@ const Modify = ({ id, title, appointment }) => {
             start_at: "",
         },
     });
-
-
+   
     const handleUpdate = async () => {
         const result = await taskService.updateTask(id, { task, duration, context, priority, start_at });
         if (result.data) {
             console.log("Task updated");
         } else if (result.error) {
             console.error("Error updating task:", result.error);
-
         }
     };
-
-
 
     return (
         <>
@@ -101,6 +98,7 @@ const Modify = ({ id, title, appointment }) => {
                                         <FormControl>
                                             <Input
                                                 placeholder="Enter your task"
+                                                value={task}
                                                 {...field}
                                                 onChange={(e) => setTask(e.target.value)}
                                                 required
@@ -121,9 +119,10 @@ const Modify = ({ id, title, appointment }) => {
                                                 <FormControl>
                                                     <Input
                                                         placeholder="Enter your start time"
+                                                        value={start_at}
                                                         {...field}
                                                         onChange={(e) => setStart_at(e.target.value)}
-                                                        required
+                                                        
                                                     />
                                                 </FormControl>
                                                 <FormMessage />
@@ -140,9 +139,10 @@ const Modify = ({ id, title, appointment }) => {
                                                 <FormControl>
                                                     <Input
                                                         placeholder="Enter your priority"
+                                                        value={priority}
                                                         {...field}
                                                         onChange={(e) => setPriority(parseInt(e.target.value))}
-                                                        required
+                                                        
                                                     />
                                                 </FormControl>
                                                 <FormMessage />
@@ -151,7 +151,6 @@ const Modify = ({ id, title, appointment }) => {
                                     />
                                 )
                             }
-
                             <FormField
                                 control={form.control}
                                 name="duration"
@@ -161,9 +160,10 @@ const Modify = ({ id, title, appointment }) => {
                                         <FormControl>
                                             <Input
                                                 placeholder="Enter your duration"
+                                                value={duration}
                                                 {...field}
                                                 onChange={(e) => setDuration(parseInt(e.target.value))}
-                                                required
+                                                
                                             />
                                         </FormControl>
                                         <FormMessage />
@@ -179,17 +179,16 @@ const Modify = ({ id, title, appointment }) => {
                                         <FormControl>
                                             <Input
                                                 placeholder="Enter your context"
+                                                value={context}
                                                 {...field}
                                                 onChange={(e) => setContext(e.target.value)}
-                                                required
+                                                
                                             />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
                                 )}
                             />
-
-
                             {loading ? (<DrawerFooter>
                                 <div className="text-5xl font-bold flex items-center justify-center">
                                     <Spinner size="lg" />
@@ -201,12 +200,8 @@ const Modify = ({ id, title, appointment }) => {
                             )}
                         </form>
                     </Form>
-
-
                 </DrawerContent>
             </Drawer>
-
-
         </>
     );
 };

@@ -5,10 +5,11 @@ import Link from "next/link";
 
 export const Navbar = () => {
     return (
-        <nav className="flex items-center justify-between md:px-8 p-6">
+        <nav className="flex items-center justify-around  p-6">
             <Logo />
-            <Link href="register">
-                <Button variant="login">Register</Button>
+            
+            <Link href="login">
+                <Button variant="login">Login</Button>
             </Link>
 
         </nav>

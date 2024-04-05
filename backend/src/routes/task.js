@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const {createTask ,getAllTasks,deleteTask,updateTask} = require('../controller/task');
+const {createTask ,getAllTasks,deleteTask,updateTask,getTask} = require('../controller/task');
 
 router.post('/create', async (req, response) => {
     const taskData = req.body; 
@@ -22,6 +22,16 @@ router.get('/get', async (req, response) => {
     } catch (error) {
         console.error('Error in GET /get:', error);
         response.status(500).json({ error: 'Error getting tasks' });
+    }
+});
+
+router.get('/get/:id', async (req, response) => {
+    try {
+        const taskId = req.params.id;
+        const task = await getTask(taskId);
+        response.json(task);
+    } catch (error) {
+        response.status(500).json({ error: 'Error getting task' });
     }
 });
 

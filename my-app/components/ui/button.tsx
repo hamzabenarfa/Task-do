@@ -18,8 +18,8 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        login:
-          "bg-gradient-to-r from-orange-300 to-rose-300 text-white font-medium hover:from-orange-400 hover:to-rose-400 rounded-3xl h-11 px-8",
+        login:"bg-gradient-to-r from-orange-300 to-rose-300 text-white font-medium hover:from-orange-400 hover:to-rose-400 rounded-3xl h-11 px-8",
+        register:"bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 text-white font-medium hover:from-orange-400 hover:to-rose-400 rounded-3xl h-11 px-8"
       },
       size: {
         default: "h-10 px-4 py-2",

@@ -1,11 +1,7 @@
 "use client"
-
-
 import { useEffect, useState } from "react";
 import { TaskCard } from "./task-card";
 import scheduleService from "@/service/schedule.service";
-import operationalHours from "@/service/operational-hours.service";
-
 const TimeBar = () => {
   const [schedule, setSchedule] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -21,8 +17,8 @@ const TimeBar = () => {
 
         const sortedTimeSlots = data.sort((a, b) => a.startAt.localeCompare(b.startAt));
   
-        const timeSlotsWithGaps = [];
-  
+        const timeSlotsWithGaps  = [];
+          
         sortedTimeSlots.forEach((slot, index) => {
           // Directly push the actual task
           timeSlotsWithGaps.push({ ...slot, isGap: false });
@@ -49,25 +45,6 @@ const TimeBar = () => {
     fetchScheduleAndGenerateSlots();
   }, []);
 
-  const heightPerHour = 600; // Adjust as needed
-  const calculateHeight = (startTime, endTime) => {
-    const [startHour, startMinute] = startTime.split(':').map(Number);
-    const [endHour, endMinute] = endTime.split(':').map(Number);
-  
-    // Calculate the start and end times in minutes
-    const startTimeInMinutes = startHour * 60 + startMinute;
-    const endTimeInMinutes = endHour * 60 + endMinute;
-  
-    // Calculate the duration in minutes
-    const durationInMinutes = endTimeInMinutes - startTimeInMinutes;
-  
-    // Calculate the height per minute
-    const heightPerMinute = heightPerHour / 60;
-  
-    // Return the height for the duration
-    return `${durationInMinutes * heightPerMinute}px`;
-  };
-  
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error fetching data</div>;
@@ -77,28 +54,27 @@ const TimeBar = () => {
       <div className="p-4 space-y-4 flex-1">
         {timeSlots.map((item, index) => (
           item.isGap ? (
-            // Render a blank task card for a gap
             <TaskCard
               id={null}
               key={`gap-${index}`}
               timeDisplay={`${item.startAt} - ${item.endAt}`}
-              time={[item.startAt ,item.endAt]}
-
+              time={[item.startAt, item.endAt]}
               title="Add task"
-              appointment={false}
-              style={{ height: calculateHeight(item.startAt, item.endAt) }}
+              appointment={false} 
+              style={undefined} 
+              duration={undefined}           
               />
           ) : (
-            // Render the actual task card
             <TaskCard
               id={item.id}
               key={item.id}
               timeDisplay={`${item.startAt} - ${item.endAt}`}
               time={[item.startAt ,item.endAt]}
-
+              duration={item.duration}
+              priority={item.priority}
               title={item.task}
+              context={item.context}
               appointment={item.isAppointment}
-              style={{ height: calculateHeight(item.startAt, item.endAt) }}
               />
           )
         ))}

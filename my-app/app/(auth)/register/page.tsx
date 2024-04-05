@@ -3,6 +3,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Logo } from "@/components/Logo";
+import authService from "@/service/auth.service";
+import { Loader2 } from "lucide-react";
 
 const Register = () => {
     const router = useRouter();
@@ -11,57 +14,48 @@ const Register = () => {
     const [password, setPassword] = useState("");
     const [repeatPassword, setRepeatPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
-
-    // Handle the form submission
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault(); 
+    const [isLoading, setIsLoading] = useState(false);
 
   
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault(); 
+        
         if(password !== repeatPassword) {
             setErrorMessage("Passwords do not match");
-            return;
+            return; 
         }
-
         try {
-            const response = await fetch('http://localhost:4000/auth/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    name:username,
-                    email,
-                    password,
-                }),
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                // Registration successful  
-                console.log("Registration successful", data);
+            setIsLoading(true);
+            const res = await authService.register(username, email, password);
+            console.log("🚀 ~ handleSubmit ~ res:", res)
+            if (res.data) {
                 router.push("/login");
+            } else {                setErrorMessage(res.response?.data?.error || "An unknown error occurred");
 
-            } else {
-                // Handle server-side validation errors, e.g., email already in use
-                throw new Error(data.message || "An error occurred during registration");
             }
+         
         } catch (error) {
-            setErrorMessage(error as string);
+            console.log(error);
+            setErrorMessage(String(error) || "An error occurred while registering");
+
+        } finally {
+            setIsLoading(false); 
         }
     };
 
     return (
         <div className="min-h-screen flex items-center justify-around">
-            <div className="hidden lg:block">
+            
+            {/* <div className="hidden lg:block">
                 <Image
-                    src="/register.png"
+                    src="/login.png"
                     alt="Register"
                     width={500}
                     height={600}
                 />
-            </div>
-            <div className="h-full flex flex-col space-y-8 p-4 py-4 bg-white m-2 shadow-md rounded-xl md:max-w-xs">
+            </div> */}
+            <div className="h-full flex flex-col space-y-8 p-10 py-4 bg-white m-2 shadow-md rounded-xl md:max-w-xs">
+            <Logo />
                 <div className="space-y-1">
                     <h1>Create Account 👋</h1>
                     <p className="font-light text-xs text-gray-500">
@@ -97,8 +91,8 @@ const Register = () => {
                         value={repeatPassword}
                         onChange={(e) => setRepeatPassword(e.target.value)}
                     />
-                    <button type="submit" className="p-2 bg-orange-300 text-white rounded-md hover:bg-orange-500">
-                        Register
+                     <button type="submit" disabled={isLoading} className="p-2 bg-orange-300 text-white rounded-md hover:bg-orange-500">
+                        {isLoading ? <Loader2 className="animate-spin mx-auto" /> : "Register"}
                     </button>
                     {errorMessage && <p className="text-red-500 text-xs mt-2">{errorMessage}</p>}
                 </form>

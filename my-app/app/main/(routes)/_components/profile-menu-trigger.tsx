@@ -1,3 +1,4 @@
+import ImageProfile from "@/components/ImageProfile";
 import {
   Menubar,
   MenubarContent,
@@ -5,6 +6,7 @@ import {
   MenubarMenu,
   MenubarTrigger,
 } from "@/components/ui/menubar";
+import authService from "@/service/auth.service";
 import { LogOut, User, User2 } from "lucide-react";
 
 import { useRouter } from "next/navigation";
@@ -14,8 +16,7 @@ const ProfileMenuTrigger = () => {
   const router = useRouter();
 
   function handleLogout() {
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
+    authService.logout();
     router.push("/login");
   }
   function handleProfile() {
@@ -26,8 +27,8 @@ const ProfileMenuTrigger = () => {
     <Menubar>
       <MenubarMenu>
         <MenubarTrigger >
-          <div className="w-10 h-10 bg-gray-100 rounded-xl flex justify-center items-center cursor-pointer">
-            <User2 />
+          <div className="w-10 h-10 rounded-xl flex justify-center items-center cursor-pointer">
+            <ImageProfile size="sm" />
           </div>
         </MenubarTrigger>
         <MenubarContent >
