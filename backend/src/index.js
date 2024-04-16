@@ -21,7 +21,7 @@ app.use('/schedule',authenticateToken, scheduleRouter);
 app.use('/user',authenticateToken, userRouter);
 app.use('/auth', authRouter);
 
-app.use('/public/images',authenticateToken, express.static('./public/images'));
+app.use('/public/images', express.static('./public/images'));
 
 app.listen(port, () =>
   console.log(`
