@@ -113,7 +113,7 @@ const HomePage = () => {
             ].map((testimonial, index) => (
               <div key={index} className="flex flex-col items-center p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow w-72">
                 {testimonial.icon}
-                <p className="text-lg italic mt-4">"{testimonial.quote}"</p>
+                <p className="text-lg italic mt-4"> `&apos;`{testimonial.quote} `&apos;`</p>
                 <p className="text-lg font-semibold mt-4">- {testimonial.author}</p>
               </div>
             ))}

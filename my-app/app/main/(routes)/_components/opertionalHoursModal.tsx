@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-
 import { Clock2 } from "lucide-react";
 import {
     Dialog,
@@ -25,21 +24,20 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
-
 import { Spinner } from "@/components/spinner";
-
 import axios from "axios";
-
+import TimePicker from 'react-time-picker';
+import 'react-time-picker/dist/TimePicker.css';
+import 'react-clock/dist/Clock.css';
 const formSchema = z.object({
     startingTime: z.string(),
     endingTime: z.string()
 });
 
 const OperationalHours = () => {
-
     const [startingTime, setStartingTime] = useState("");
     const [endingTime, setEndingTime] = useState("");
-    const [operationalHours, setOperationalHours] = useState(null)
+    const [operationalHours, setOperationalHours] = useState(null);
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
 
@@ -60,13 +58,12 @@ const OperationalHours = () => {
                 : "http://localhost:4000/operationalhours/create";
             const method = operationalHours ? "put" : "post";
 
-            setLoading(true)
+            setLoading(true);
             const res = await axios[method](
                 url,
                 {
                     startingTime,
                     endingTime
-
                 },
                 {
                     headers: {
@@ -81,9 +78,10 @@ const OperationalHours = () => {
                 setLoading(false);
             }
         } catch (err) {
-            console.log(err)
+            console.log(err);
+            setLoading(false);
         }
-    }
+    };
 
     useEffect(() => {
         const fetchOperationalHours = async () => {
@@ -94,25 +92,23 @@ const OperationalHours = () => {
                     },
                 });
                 if (response) {
-                    setOperationalHours(response.data)
+                    setOperationalHours(response.data);
                 } else {
-                    console.log("no data")
+                    console.log("no data");
                 }
             } catch (error) {
                 console.error("Fetching data failed:", error);
             }
         };
         fetchOperationalHours();
-    }
-        , [token]);
-
+    }, [token]);
 
     return (
         <>
             <Dialog open={open} onOpenChange={setOpen} >
                 <DialogTrigger asChild>
                     {operationalHours ?
-                        (<div className="  h-10 bg-gray-100 rounded-3xl flex justify-center items-center cursor-pointer">
+                        (<div className="h-10 bg-gray-100 rounded-3xl flex justify-center items-center cursor-pointer">
                             <div className="flex flex-row items-center justify-center gap-1 px-4">
                                 <p>{operationalHours.startingTime}</p>-
                                 <p>{operationalHours.endingTime}</p>
@@ -121,60 +117,54 @@ const OperationalHours = () => {
                         (<div className="w-10 h-10 bg-gray-100 rounded-3xl flex justify-center items-center cursor-pointer">
                             <Clock2 size={20} className="text-gray-400" />
                         </div>)
-
                     }
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>
                         <DialogTitle>Operational hours</DialogTitle>
                         <DialogDescription className="flex flex-col items-center justify-center gap-1">
-                            click on the save to enable the operational hours
-
+                            Click on the save to enable the operational hours
                         </DialogDescription>
                     </DialogHeader>
                     <div>
-
                         <Form {...form}>
                             <form onSubmit={handleSubmit} className="space-y-4">
                                 <FormField
                                     control={form.control}
                                     name="startingTime"
-                                    render={(field) => (
+                                    render={() => (
                                         <FormItem>
                                             <FormLabel>Starting Time</FormLabel>
                                             <FormControl>
-                                                <Input
-                                                    placeholder="Enter your starting time"
-                                                    {...field}
-                                                    onChange={(e) => setStartingTime(e.target.value)}
-                                                    required
+                                                <TimePicker
+                                                    onChange={setStartingTime}
+                                                    value={startingTime}
+                                                    disableClock={true}
+                                                    className="w-full border border-gray-300 rounded-md py-2 px-3"
                                                 />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
                                     )}
                                 />
-
                                 <FormField
                                     control={form.control}
                                     name="endingTime"
-                                    render={(field) => (
+                                    render={() => (
                                         <FormItem>
                                             <FormLabel>Ending Time</FormLabel>
                                             <FormControl>
-                                                <Input
-                                                    placeholder="Enter your ending time"
-                                                    {...field}
-                                                    onChange={(e) => setEndingTime(e.target.value)}
-                                                    required
+                                                <TimePicker
+                                                    onChange={setEndingTime}
+                                                    value={endingTime}
+                                                    disableClock={true}
+                                                    className="w-full border border-gray-300 rounded-md py-2 px-3"
                                                 />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
                                     )}
                                 />
-
-
                                 {loading ? (
                                     <div className="text-5xl font-bold flex items-center justify-center">
                                         <Spinner size="lg" />
