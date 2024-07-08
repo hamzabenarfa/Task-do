@@ -5,7 +5,7 @@ const CalendarNav = () => {
     const today = new Date();
     const startOfCurrentWeek = startOfWeek(today); 
     const weekDays = []; 
-    const dates = []; 
+    const dates:any = []; 
 
     for (let i = 0; i < 7; i++) {
         const currentDate = addDays(startOfCurrentWeek, i);

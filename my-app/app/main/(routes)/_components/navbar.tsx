@@ -18,7 +18,7 @@ const Navbar = () => {
       <div className="flex flex-col w-full">
         {userData && (
           <>
-            <h1 className="font-bold capitalize">Hi , {userData.name} </h1>
+            <h1 className="font-bold capitalize">Hi , {(userData as { name: string }).name} </h1>
             <p className="hidden lg:block text-sm font-thin">Your daily adventure starts now</p>
           </>
         )}

@@ -43,7 +43,7 @@ const formSchema = z.object({
 
 });
 
-const Modify = ({ id, title, appointment,data }) => {
+const Modify = ({ id, title, appointment,data }:any) => {
 
     const [task, setTask] = useState(title);
     const [duration, setDuration] = useState(data.duration);

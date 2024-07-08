@@ -40,7 +40,7 @@ const formSchema = z.object({
 
 });
 
-const Add = ({ title ,time }) => {
+const Add = ({ title  }:{title:string}) => {
 
     const [task, setTask] = useState("");
     const [context, setContext] = useState("");

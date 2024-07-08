@@ -9,7 +9,7 @@ import {
 import taskService from "@/service/task.service";
 import { MoreVertical,  Trash2} from "lucide-react";
 
-const MenuTrigger = ({id}) => {
+const MenuTrigger = ({id }: { id: any }) => {
   const handleDelete = async () => {
     const result = await taskService.deleteTask(id);
     if (result.data) {

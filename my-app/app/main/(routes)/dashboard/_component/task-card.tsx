@@ -20,7 +20,6 @@ export const TaskCard = ({ id, time, timeDisplay,context ,title, appointment, du
         {!id &&
           <Add 
             title={title}
-            time={time}
 
           />}
         <div className="flex flex-col items-start w-full ">

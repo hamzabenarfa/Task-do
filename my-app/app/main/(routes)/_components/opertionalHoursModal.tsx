@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/form";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/spinner";
@@ -33,11 +33,19 @@ const formSchema = z.object({
     startingTime: z.string(),
     endingTime: z.string()
 });
+type FormSchema = z.infer<typeof formSchema>;
+
+
+interface OperationalHoursData {
+    id: string;
+    startingTime: string;
+    endingTime: string;
+}
 
 const OperationalHours = () => {
-    const [startingTime, setStartingTime] = useState("");
-    const [endingTime, setEndingTime] = useState("");
-    const [operationalHours, setOperationalHours] = useState(null);
+    const [startingTime, setStartingTime] = useState<string | null>(null);
+    const [endingTime, setEndingTime] = useState<string | null>(null);
+    const [operationalHours, setOperationalHours] = useState<OperationalHoursData | null>(null);
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
 

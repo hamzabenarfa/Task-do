@@ -9,7 +9,7 @@ import { cva } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
 
-const ImageProfile = ({ className, size, profile = false }) => {
+const ImageProfile = ({ className, size, profile = false }:any) => {
     const userData = useUserData();
     const [profileImageUrl, setProfileImageUrl] = useState(null);
 
